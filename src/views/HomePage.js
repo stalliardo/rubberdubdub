@@ -11,8 +11,7 @@ class HomePage extends Component {
     componentDidMount = () => {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                // console.log("User = ", user);
-                // Set the emial in the navbar err gonna be tricky but could use this stateOb in the nav comp
+                // TODO -> 
             }
         });
     }

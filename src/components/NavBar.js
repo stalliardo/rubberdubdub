@@ -17,19 +17,13 @@ class NavBar extends Component {
 
     componentDidMount = () => {
         firebase.auth().onAuthStateChanged(user => {
-            console.log("**Nav** \tauth state changed called");
             if (user) {
                 console.log("Nav User = ", user);
-                // user.getIdToken(true).then((token) => {
-                //     console.log("token = ", token);
-                // })
                 this.setState({ 
                     email: user.email,
                     isAuthenticated: true
                  })
-                // Set the emial in the navbar err gonna be tricky but could use this stateOb in the nav comp
             } else {
-                console.log("**Nav** \tauth state else called");
                 this.setState({
                     email: "",
                     isAuthenticated: false
