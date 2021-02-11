@@ -4,10 +4,6 @@ const firebase = require("firebase");
 firebase.initializeApp(config);
 
 exports.signUpUser = (request, response) => {
-
-    // TODO -> Need to have some logic to detect if a google signup or a email/password signup
-
-
     db.doc(`/users/${request.body.user.uid}`).get().then((doc) => {
         if (doc.exists) {
             return response.status(400).json({ error: 'Account already exists' });
