@@ -11,7 +11,7 @@ class HomePage extends Component {
     componentDidMount = () => {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                // TODO -> 
+                // TODO -> This is a git test
             }
         });
     }
