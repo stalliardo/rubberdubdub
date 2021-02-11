@@ -32,9 +32,7 @@ class SignUp extends Component {
 
         this.setState({
             submitButtonDisabled: !formIsValid
-        })
-
-        console.log("form is valid = ", formIsValid);
+        });
     }
 
     handleChange = (event) => {
