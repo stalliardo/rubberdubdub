@@ -1,0 +1,55 @@
+.navbar {
+    height: 70px;
+    position: fixed;
+    background-color: #20232a;
+    width: 100%;
+    z-index: 1;
+    left: 0;
+    top: 0;
+
+    img {
+        width: 200px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -15%);
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+   .nav-links {
+    width: fit-content;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    
+    a {
+        text-decoration: none;
+        color: white;
+        margin-right: 20px;
+    }
+
+    .selected-nav {
+        color: yellowgreen;
+        // todo
+    }
+
+    span {
+        color: white;
+        margin-right: 1rem;
+    }
+
+    span:not(.nav-identifier) {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    span.nav-identifier {
+        color: steelblue;
+    }
+
+    
+   }
+}

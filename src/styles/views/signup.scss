@@ -1,0 +1,46 @@
+.sign-up-form {
+    width: 30%;
+    height: 400px;
+    border: 1px solid grey;
+    background: white;
+    border-radius: 5px;
+    margin: auto;
+    padding: 20px;
+    height: fit-content;
+
+    h1 {
+        color: rgb(110, 151, 165);
+        text-align: center;
+        margin: 0;
+    }
+
+    p {
+        color: rgb(110, 151, 165);
+        text-align: center;
+        margin: 0;
+
+        span {
+            color: blue;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+
+        input {
+            height: 2rem;
+            margin-top: 0.8rem;
+            padding-left: 0.8rem;
+        }
+
+        input:last-child {
+            margin-bottom: 1.2rem;
+        }
+
+        
+    }
+}

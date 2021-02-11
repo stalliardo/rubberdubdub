@@ -1,17 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
+import HomePage from './views/HomePage';
+import firebase from 'firebase/app';
+import NavBar from './components/NavBar';
+import './styles/app.scss';
+import Login from './views/Login';
+import SignUp from './views/SignUp';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+firebase.initializeApp({
+    apiKey: "AIzaSyA_Jb4QPVze61ExISOjqVibHKrvYhQ4Ito",
+    authDomain: "rubberdubdub-4b15f.firebaseapp.com",
+    projectId: "rubberdubdub-4b15f",
+    storageBucket: "rubberdubdub-4b15f.appspot.com",
+    messagingSenderId: "806656543200",
+    appId: "1:806656543200:web:3675b5f2aca960e1738385",
+    measurementId: "G-M3XL5YGH56"
+})
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+class App extends Component {
+    render() {
+        return (
+            <div>
+                <Router>
+                    <NavBar />
+                    <div>
+                        <div className="outlet-container">
+                        <Switch>
+                                <Route exact path="/" component={HomePage} />
+                                <Route exact path="/login" component={Login} />
+                                <Route exact path="/signup" component={SignUp} />
+                        </Switch>
+                        </div>
+                    </div>
+                </Router>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
