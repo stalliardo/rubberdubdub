@@ -81,7 +81,6 @@ class SignUp extends Component {
     }
 
     onGoogleSignup = () => {
-        console.log("google clicked");
         var provider = new firebase.auth.GoogleAuthProvider();
 
         firebase.auth().signInWithPopup(provider).then(() => {
@@ -94,8 +93,12 @@ class SignUp extends Component {
         }).then(() => {
             this.props.history.push("/");
         }).catch((error) => {
-            console.log("An error occured signing in via google. Error = ", error);
-            // TODO -> Display errors on page/form
+            console.log("An error occured signing in via google. Error = ", error.response);
+            if(error.response.data.error === "Account already exists") {
+                this.props.history.push("/");
+            } else {
+                // TODO -> Display errors on page/form
+            }
         });
     }
 
