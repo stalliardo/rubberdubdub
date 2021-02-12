@@ -11,6 +11,7 @@ import NavBar from './components/NavBar';
 import './styles/app.scss';
 import Login from './views/Login';
 import SignUp from './views/SignUp';
+import background from './assets/images/test2.jpg';
 
 firebase.initializeApp({
     apiKey: "AIzaSyA_Jb4QPVze61ExISOjqVibHKrvYhQ4Ito",
@@ -26,7 +27,10 @@ firebase.initializeApp({
 class App extends Component {
     render() {
         return (
-            <div>
+            <div className="main">
+                <div className="image-container">
+                    <img className="back-image" src={background}></img>
+                </div>
                 <Router>
                     <NavBar />
                     <div>

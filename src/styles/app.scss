@@ -3,10 +3,26 @@
 *:hover {
     outline: none;
 }
+body {    
+    margin: 0 !important;
+    padding: 0 !important;
+    // TODO 
+    overflow-y: hidden;
+    background-color: black;
+}
+
+.main {
+    .back-image {
+        position: absolute;
+        z-index: -1;
+        height: auto;
+        max-width: 100%;
+    }
+}
 
 .outlet-container {
-    background: teal;
-    height: 900px;
+
+    // height: 900px;
     padding-top: 150px;
     max-width: 1600px;
     margin: auto;
