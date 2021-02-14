@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import "firebase/auth";
 import "../styles/views/input.scss";
+import "../styles/views/form.scss";
 
 class TestPage extends Component {
     constructor(props) {
@@ -17,9 +18,11 @@ class TestPage extends Component {
     render() {
 
         return (
-            <section class="e-input">
-                <input type="text" placeholder="What are you looking for?" />
-            </section>
+            <div className="form-container">
+                <div className="glow-form">
+                    <input className="e-input" placeholder="This is a test"/>
+                </div>
+            </div>
         )
     }
 }

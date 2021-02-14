@@ -108,17 +108,19 @@ class SignUp extends Component {
             <div className="sign-up-form">
                 <h1>Sign up</h1>
                 <p>Or <span onClick={this.OnSigninClicked}>Sign in to your account</span></p>
-                <form onSubmit={(e) => this.onSubmit(e)}>
-                    <input className="e-input" type="text" name="firstname" placeholder="Firstname" onChange={this.handleChange} />
-                    <input className="e-input" type="text" name="lastname" placeholder="Surname" onChange={this.handleChange} />
-                    <input className="e-input" type="email" name="email" placeholder="Email Address" onChange={this.handleChange} />
-                    <input className="e-input" type="password" name="password" placeholder="Password" onChange={this.handleChange} />
-                    <input className="e-input" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
-                    <input className="e-input" type="submit" disabled={this.state.submitButtonDisabled} value="Signup" />                    
-                </form>
-                {/* TODO extended button */}
-                <button onClick={this.onGoogleSignup}>Sign up with Google</button>
-                <button onClick={this.onCancel}>Cancel</button>
+                <div className="glow-form">
+                    <form onSubmit={(e) => this.onSubmit(e)}>
+                        <input className="e-input" type="text" name="firstname" placeholder="Firstname" onChange={this.handleChange} />
+                        <input className="e-input" type="text" name="lastname" placeholder="Surname" onChange={this.handleChange} />
+                        <input className="e-input" type="email" name="email" placeholder="Email Address" onChange={this.handleChange} />
+                        <input className="e-input" type="password" name="password" placeholder="Password" onChange={this.handleChange} />
+                        <input className="e-input" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
+                        <input className="e-input" type="submit" disabled={this.state.submitButtonDisabled} value="Signup" />
+                    </form>
+                    {/* TODO extended button */}
+                    <button onClick={this.onGoogleSignup}>Sign up with Google</button>
+                    <button onClick={this.onCancel}>Cancel</button>
+                </div>
             </div>
         )
     }
