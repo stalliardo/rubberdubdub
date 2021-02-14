@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import axios from 'axios';
 import { validEmail } from '../util/validators.js';
+import "../styles/views/input.scss";
 
 class SignUp extends Component {
     constructor(props) {
@@ -53,12 +54,12 @@ class SignUp extends Component {
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(() => {
             return firebase.auth().currentUser.getIdToken(true);
         }).then((token) => {
-            return axios.post("/signup", { 
+            return axios.post("/signup", {
                 token: token,
                 userDetails: {
                     firstname: this.state.firstname,
                     lastname: this.state.lastname,
-                } 
+                }
             });
         }).then(() => {
             this.props.history.push("/")
@@ -86,7 +87,7 @@ class SignUp extends Component {
         firebase.auth().signInWithPopup(provider).then(() => {
             return firebase.auth().currentUser.getIdToken(true);
         }).then((token) => {
-            return axios.post("/signup", { 
+            return axios.post("/signup", {
                 token: token,
                 isGoogleAuth: true
             });
@@ -94,7 +95,7 @@ class SignUp extends Component {
             this.props.history.push("/");
         }).catch((error) => {
             console.log("An error occured signing in via google. Error = ", error.response);
-            if(error.response.data.error === "Account already exists") {
+            if (error.response.data.error === "Account already exists") {
                 this.props.history.push("/");
             } else {
                 // TODO -> Display errors on page/form
@@ -108,12 +109,12 @@ class SignUp extends Component {
                 <h1>Sign up</h1>
                 <p>Or <span onClick={this.OnSigninClicked}>Sign in to your account</span></p>
                 <form onSubmit={(e) => this.onSubmit(e)}>
-                    <input type="text" name="firstname" placeholder="Firstname" onChange={this.handleChange} />
-                    <input type="text" name="lastname" placeholder="Surname" onChange={this.handleChange} />
-                    <input type="email" name="email" placeholder="Email Address" onChange={this.handleChange} />
-                    <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
-                    <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
-                    <input type="submit" disabled={this.state.submitButtonDisabled} value="Signup" />
+                    <input className="e-input" type="text" name="firstname" placeholder="Firstname" onChange={this.handleChange} />
+                    <input className="e-input" type="text" name="lastname" placeholder="Surname" onChange={this.handleChange} />
+                    <input className="e-input" type="email" name="email" placeholder="Email Address" onChange={this.handleChange} />
+                    <input className="e-input" type="password" name="password" placeholder="Password" onChange={this.handleChange} />
+                    <input className="e-input" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
+                    <input className="e-input" type="submit" disabled={this.state.submitButtonDisabled} value="Signup" />                    
                 </form>
                 {/* TODO extended button */}
                 <button onClick={this.onGoogleSignup}>Sign up with Google</button>
