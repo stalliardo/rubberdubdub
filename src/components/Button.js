@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import '../../styles/components/button.scss';
+import '../styles/components/button.scss';
+import Spinner from './Spinner';
 
 class Button extends Component {
     constructor(props) {
         super(props);
-
-
     }
 
     render() {
@@ -13,7 +12,14 @@ class Button extends Component {
         if (this.props.type === "submit") {
             // Return a form button
             return (
-                <button className="e-button" type="button" type={this.props.type} disabled={this.props.disabled}>{this.props.text}</button>
+                <button 
+                    className="e-button" 
+                    type="button" 
+                    type={this.props.type} 
+                    disabled={this.props.disabled}
+                >
+                    {this.props.isLoading ? <Spinner height="20px" width="20px"/> : this.props.text}
+                </button>
 
             )
         } else {

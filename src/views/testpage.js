@@ -3,7 +3,8 @@ import firebase from 'firebase/app';
 import "firebase/auth";
 import "../styles/views/input.scss";
 import "../styles/views/form.scss";
-import Button from '../styles/components/Button';
+import "../styles/testpage.scss";
+import Spinner from '../components/Spinner';
 
 class TestPage extends Component {
     constructor(props) {
@@ -21,13 +22,9 @@ class TestPage extends Component {
     render() {
 
         return (
-            <div className="neon-borders">
-
-                <div className="wrapper wrapper-rounded">
-                   <input type="text" placeholder="This is a test input"/>
-                </div>
-
-            </div>
+           <div className="testpage">
+               
+           </div>
         )
     }
 }

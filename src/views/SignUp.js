@@ -6,7 +6,7 @@ import axios from 'axios';
 import { validEmail } from '../util/validators.js';
 import "../styles/views/input.scss";
 import "../styles/views/form.scss";
-import Button from '../styles/components/Button';
+import Button from '../components/Button';
 
 class SignUp extends Component {
     constructor(props) {
@@ -108,7 +108,7 @@ class SignUp extends Component {
     render() {
         return (
             <div className="sign-up-form">
-                <h1>Sign up</h1>
+                <h1>Sign up TODO Add glow effect to titles</h1>
                 <p>Or <span onClick={this.OnSigninClicked}>Sign in to your account</span></p>
                 <div className="neon-borders">
                     <form onSubmit={(e) => this.onSubmit(e)}>
@@ -119,7 +119,7 @@ class SignUp extends Component {
                         <input className="e-input" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
 
                         <div className="signup-form-button-aligner">
-                            <Button text="Submit" type="submit" disabled={this.state.submitButtonDisabled} />
+                            <Button text="Submit" type="submit" isLoading={true} disabled={this.state.submitButtonDisabled} />
                         </div>
 
                     </form>
