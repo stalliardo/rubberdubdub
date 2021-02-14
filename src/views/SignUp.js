@@ -119,7 +119,7 @@ class SignUp extends Component {
                         <input className="e-input" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
 
                         <div className="signup-form-button-aligner">
-                            <Button text="Submit" type="submit" isLoading={true} disabled={this.state.submitButtonDisabled} />
+                            <Button text="Submit" type="submit" isLoading={this.state.isSaving} disabled={this.state.submitButtonDisabled} />
                         </div>
 
                     </form>

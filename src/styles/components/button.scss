@@ -21,6 +21,7 @@ $blue: rgb(0, 140, 255);
 .e-button:disabled {
     border-color: red;
     color: red;
+    cursor: not-allowed
 }
 
 .ie .e-button {
