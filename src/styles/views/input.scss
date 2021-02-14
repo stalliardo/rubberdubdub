@@ -1,13 +1,12 @@
 .e-input {
-	background: black;	
-	// background: linear-gradient(#333, #222);	
-	border: 1px solid rgb(255, 0, 200);
+	background: black;
+	border: 1px solid  rgb(0, 140, 255);
 	border-radius: 5px;
 	box-shadow: 0 2px 0 #000;
 	color: #888;
 	display: block;
 	float: left;
-	font-family: 'Cabin', helvetica, arial, sans-serif;
+	font-family: "Cabin", helvetica, arial, sans-serif;
 	font-size: 13px;
 	font-weight: 400;
 	height: 40px;
@@ -22,24 +21,24 @@
 }
 
 .e-input::-webkit-input-placeholder {
-   color: #888;
+	color: #888;
 }
 
 .e-input:-moz-placeholder {
-   color: #888;
+	color: #888;
 }
 
 .e-input:focus {
 	animation: glow 800ms ease-out infinite alternate;
 	// background: #222922;
 	// background: linear-gradient(#333933, #222922);
-	border-color: rgb(26, 200, 243);
-	box-shadow: 0 0 5px rgba(0, 247, 255, 0.2), inset 0 0 5px rgba(11, 112, 138, 0.1), 0 2px 0 #000;
+	border-color: rgb(255, 0, 200);
+	box-shadow: 0 0 5px rgba(255, 0, 242, 0.2), inset 0 0 5px rgba(134, 11, 138, 0.1), 0 2px 0 #000;
 	color: #efe;
 	outline: none;
 }
 
-.e-input:focus::-webkit-input-placeholder { 
+.e-input:focus::-webkit-input-placeholder {
 	color: #efe;
 }
 
@@ -48,12 +47,12 @@
 }
 
 @keyframes glow {
-    0% {
-		border-color: rgb(19, 162, 228);
-		box-shadow: 0 0 5px rgba(0, 195, 255, 0.2), inset 0 0 5px rgba(0, 204, 255, 0.1), 0 2px 0 #000;
-    }	
-    100% {
-		border-color: rgb(2, 196, 245);
-		box-shadow: 0 0 20px rgba(0, 217, 255, 0.6), inset 0 0 10px rgba(0, 217, 255, 0.4), 0 2px 0 #000;
-    }
+	0% {
+		border-color: rgba(255, 0, 200, 0.514);
+		box-shadow: 0 0 5px rgba(234, 0, 255, 0.2), inset 0 0 5px rgba(255, 0, 255, 0.1), 0 2px 0 #000;
+	}
+	100% {
+		border-color: rgb(255, 0, 200);
+		box-shadow: 0 0 20px rgba(255, 0, 255, 0.6), inset 0 0 30px rgba(247, 0, 255, 0.4), 0 2px 0 #000;
+	}
 }

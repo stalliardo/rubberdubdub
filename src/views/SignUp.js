@@ -5,6 +5,8 @@ import 'firebase/auth';
 import axios from 'axios';
 import { validEmail } from '../util/validators.js';
 import "../styles/views/input.scss";
+import "../styles/views/form.scss";
+import Button from '../styles/components/Button';
 
 class SignUp extends Component {
     constructor(props) {
@@ -108,7 +110,7 @@ class SignUp extends Component {
             <div className="sign-up-form">
                 <h1>Sign up</h1>
                 <p>Or <span onClick={this.OnSigninClicked}>Sign in to your account</span></p>
-                <div className="glow-form">
+                <div className="neon-borders">
                     <form onSubmit={(e) => this.onSubmit(e)}>
                         <input className="e-input" type="text" name="firstname" placeholder="Firstname" onChange={this.handleChange} />
                         <input className="e-input" type="text" name="lastname" placeholder="Surname" onChange={this.handleChange} />
@@ -116,10 +118,14 @@ class SignUp extends Component {
                         <input className="e-input" type="password" name="password" placeholder="Password" onChange={this.handleChange} />
                         <input className="e-input" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
                         <input className="e-input" type="submit" disabled={this.state.submitButtonDisabled} value="Signup" />
+                        {/* // What the fuck did i do here? With regards to the sibmit action and bubbling from the button */}
+                        <Button clickHandler={this.onGoogleSignup} text="Sign up with Google" />
+
                     </form>
                     {/* TODO extended button */}
-                    <button onClick={this.onGoogleSignup}>Sign up with Google</button>
-                    <button onClick={this.onCancel}>Cancel</button>
+                    <Button clickHandler={this.onGoogleSignup} text="Sign up with Google" />
+                    <Button clickHandler={this.onCancel} text="Cancel" />
+                    {/* <button onClick={this.onCancel}>Cancel</button> */}
                 </div>
             </div>
         )

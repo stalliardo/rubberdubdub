@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import "firebase/auth";
 import "../styles/views/input.scss";
 import "../styles/views/form.scss";
+import Button from '../styles/components/Button';
 
 class TestPage extends Component {
     constructor(props) {
@@ -13,15 +14,19 @@ class TestPage extends Component {
 
     }
 
-
+    buttonClicked = () => {
+        console.log("button clicked");
+    }
 
     render() {
 
         return (
-            <div className="form-container">
-                <div className="glow-form">
-                    <input className="e-input" placeholder="This is a test"/>
+            <div className="neon-borders">
+
+                <div className="wrapper wrapper-rounded">
+                   <input type="text" placeholder="This is a test input"/>
                 </div>
+
             </div>
         )
     }
