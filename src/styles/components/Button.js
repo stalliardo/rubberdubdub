@@ -9,11 +9,17 @@ class Button extends Component {
     }
 
     render() {
-        return (
-            // <button onClick={this.props.clickHandler}>{this.props.text}</button>
 
-            <button className="glow-on-hover" type="button">{this.props.text}</button>
-        )
+        if (this.props.type === "submit") {
+            return (
+                <button className="glow-on-hover" type="button" disabled={this.props.disabled}>{this.props.text}</button>
+
+            )
+        } else {
+            return (
+                <button className="glow-on-hover" type="button" disabled={this.props.disabled} onClick={this.props.clickHandler}>{this.props.text}</button>
+            )
+        }
     }
 }
 export default Button;
