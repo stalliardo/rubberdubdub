@@ -117,15 +117,18 @@ class SignUp extends Component {
                         <input className="e-input" type="email" name="email" placeholder="Email Address" onChange={this.handleChange} />
                         <input className="e-input" type="password" name="password" placeholder="Password" onChange={this.handleChange} />
                         <input className="e-input" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
-                        {/* <input className="e-input" type="submit" disabled={this.state.submitButtonDisabled} value="Signup" /> */}
-                        {/* // What the fuck did i do here? With regards to the sibmit action and bubbling from the button */}
-                        <Button text="Submit" type="submit" />
+
+                        <div className="signup-form-button-aligner">
+                            <Button text="Submit" type="submit" disabled={this.state.submitButtonDisabled} />
+                        </div>
 
                     </form>
-                    {/* TODO extended button */}
-                    <Button clickHandler={this.onGoogleSignup} text="Sign up with Google" />
-                    <Button clickHandler={this.onCancel} text="Cancel" />
-                    {/* <button onClick={this.onCancel}>Cancel</button> */}
+                    <div className="signup-form-button-aligner">
+                        <Button clickHandler={this.onGoogleSignup} text="Sign up with Google" />
+                    </div>
+                    <div className="signup-form-button-aligner">
+                        <Button clickHandler={this.onCancel} text="Cancel" />
+                    </div>
                 </div>
             </div>
         )

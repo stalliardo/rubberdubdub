@@ -11,15 +11,21 @@ class Button extends Component {
     render() {
 
         if (this.props.type === "submit") {
+            // Return a form button
             return (
-                <button className="glow-on-hover" type="button" disabled={this.props.disabled}>{this.props.text}</button>
+                <button className="e-button" type="button" type={this.props.type} disabled={this.props.disabled}>{this.props.text}</button>
 
             )
         } else {
             return (
-                <button className="glow-on-hover" type="button" disabled={this.props.disabled} onClick={this.props.clickHandler}>{this.props.text}</button>
+                <button className="e-button" type="button" disabled={this.props.disabled} onClick={this.props.clickHandler}>{this.props.text}</button>
             )
         }
     }
 }
 export default Button;
+
+
+// When the button is clicked it shows the glow continuosly, this is not desired behaviour, just enable that on hover - DONE
+// Disabled should disbale the glow effect or have a red glow???? - DONE
+// Text colour - DONE?

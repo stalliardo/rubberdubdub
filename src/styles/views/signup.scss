@@ -20,26 +20,33 @@
             }
         }
     }
-    
+
     .neon-borders {
         padding: 20px;
+        display: flex;
+        flex-direction: column;
+
+        .signup-form-button-aligner {
+            width: 50%;
+            margin: auto;
+        }
+
+        button {
+            margin-top: 1.4rem;
+        }
+
         form {
-            display: flex;
-            flex-direction: column;
             width: 100%;
-    
+
             input {
                 width: 90%;
                 margin: auto;
                 margin-top: 1.4rem;
-    
             }
-    
+
             input:last-child {
                 margin-bottom: 1.2rem;
             }
-    
-            
         }
     }
 }

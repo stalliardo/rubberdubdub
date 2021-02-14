@@ -1,61 +1,133 @@
-.glow-on-hover {
-    width: 220px;
-    height: 50px;
-    border: none;
-    outline: none;
-    color: #fff;
-    background: #111;
+// .glow-on-hover {
+//     width: 220px;
+//     height: 50px;
+//     border: none;
+//     outline: none;
+//     color: #fff;
+//     background: #111;
+//     cursor: pointer;
+//     position: relative;
+//     z-index: 0;
+//     border-radius: 10px;
+    
+    
+// }
+
+// .glow-on-hover:before {
+//     content: '';
+//     background: linear-gradient(45deg, #ea00ff, #00aeff, #002bff, #7a00ff,  #ea00ff);
+//     position: absolute;
+//     top: -2px;
+//     left:-2px;
+//     background-size: 400%;
+//     z-index: -1;
+//     filter: blur(5px);
+//     width: calc(100% + 4px);
+//     height: calc(100% + 4px);
+//     animation: glowing 20s linear infinite;
+//     opacity: 0;
+//     transition: opacity .3s ease-in-out;
+//     border-radius: 10px;
+// }
+
+// .glow-on-hover:active {
+//     color: #000
+// }
+
+// .glow-on-hover:active:after {
+//     background: transparent;
+// }
+
+// .glow-on-hover:hover:before {
+//     opacity: 1;
+// }
+
+// .glow-on-hover:after {
+//     z-index: -1;
+//     content: '';
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+//     background: #111;
+//     left: 0;
+//     top: 0;
+//     border-radius: 10px;
+// }
+
+// @keyframes glowing {
+//     0% { background-position: 0 0; }
+//     50% { background-position: 400% 0; }
+//     100% { background-position: 0 0; }
+// }
+
+
+
+
+
+
+$blue: rgb(0, 140, 255);
+
+.e-button {
+	background: black;
+	border: 1px solid  $blue;
+	border-radius: 5px;
+	box-shadow: 0 2px 0 #000;
+	color: $blue;
+	display: block;
+	float: left;
+	font-family: "Cabin", helvetica, arial, sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+	height: 40px;
+	margin: 0;
+	padding: 0 10px;
+	text-shadow: 0 -1px 0 #000;
+	width: 100%;
+}
+
+.e-button:disabled {
+    border-color: red;
+    color: red;
+}
+
+.ie .e-button {
+	line-height: 40px;
+}
+
+.e-button::-webkit-input-placeholder {
+	color: #888;
+}
+
+.e-button:-moz-placeholder {
+	color: #888;
+}
+
+.e-button:hover:not(:disabled) {
     cursor: pointer;
-    position: relative;
-    z-index: 0;
-    border-radius: 10px;
-    
-    
+	animation: glow 800ms ease-out infinite alternate;
+	// background: #222922;
+	// background: linear-gradient(#333933, #222922);
+	border-color: rgb(255, 0, 200);
+	box-shadow: 0 0 5px rgba(255, 0, 242, 0.2), inset 0 0 5px rgba(134, 11, 138, 0.1), 0 2px 0 #000;
+	color: #efe;
+	outline: none;
 }
 
-.glow-on-hover:before {
-    content: '';
-    background: linear-gradient(45deg, #ea00ff, #00aeff, #002bff, #7a00ff,  #ea00ff);
-    position: absolute;
-    top: -2px;
-    left:-2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 20s linear infinite;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    border-radius: 10px;
+.e-button:focus::-webkit-input-placeholder {
+	color: #efe;
 }
 
-.glow-on-hover:active {
-    color: #000
+.e-button:focus:-moz-placeholder {
+	color: #efe;
 }
 
-.glow-on-hover:active:after {
-    background: transparent;
-}
-
-.glow-on-hover:hover:before {
-    opacity: 1;
-}
-
-.glow-on-hover:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #111;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
-}
-
-@keyframes glowing {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
+@keyframes glow {
+	0% {
+		border-color: rgba(255, 0, 200, 0.514);
+		box-shadow: 0 0 5px rgba(234, 0, 255, 0.2), inset 0 0 5px rgba(255, 0, 255, 0.1), 0 2px 0 #000;
+	}
+	100% {
+		border-color: rgb(255, 0, 200);
+		box-shadow: 0 0 20px rgba(255, 0, 255, 0.6), inset 0 0 30px rgba(247, 0, 255, 0.4), 0 2px 0 #000;
+	}
 }

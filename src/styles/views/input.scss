@@ -38,6 +38,10 @@
 	outline: none;
 }
 
+.e-input:hover {
+	cursor: pointer;
+}
+
 .e-input:focus::-webkit-input-placeholder {
 	color: #efe;
 }
