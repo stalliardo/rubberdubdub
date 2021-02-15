@@ -6,6 +6,7 @@ import axios from 'axios';
 import { validEmail } from '../util/validators.js';
 import "../styles/views/input.scss";
 import "../styles/views/form.scss";
+import "../styles/views/fonts.scss";
 import Button from '../components/Button';
 
 class SignUp extends Component {
@@ -122,7 +123,8 @@ class SignUp extends Component {
     render() {
         return (
             <div className="sign-up-form">
-                <h1>Sign up TODO Add glow effect to titles</h1>
+                {/* <h1>Sign up TODO Add glow effect to titles</h1> */}
+                <h2 className="title">Sign up</h2>
                 <p>Or <span onClick={this.OnSigninClicked}>Sign in to your account</span></p>
                 <div className="neon-borders">
                     <form onSubmit={(e) => this.onSubmit(e)}>
