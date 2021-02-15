@@ -37,8 +37,8 @@ class NavBar extends Component {
     }
 
     onSignOut = () => {
-        // TODO -> 
         firebase.auth().signOut().then(() => {
+            // TEST -> Make sure the users data is cleared etc
             // Sign-out successful.
           }).catch((error) => {
             // An error happened.

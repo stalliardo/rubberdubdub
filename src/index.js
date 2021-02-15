@@ -24,7 +24,6 @@ firebase.initializeApp({
     measurementId: "G-M3XL5YGH56"
 })
 
-
 class App extends Component {
     render() {
         return (

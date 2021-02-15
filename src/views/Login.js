@@ -77,7 +77,7 @@ class Login extends Component {
             this.setState({
                 isLoading: false
             });
-        })
+        });
     }
 
     onGoogleSignIn = () => {
@@ -102,7 +102,7 @@ class Login extends Component {
     render() {
         return (
             <div className="auth-form">
-                <h2 className="title">Log in</h2>
+                <h2 className="title">Log In</h2>
                 <div className="neon-borders">
                     <form onSubmit={(e) => this.onSubmit(e)}>
 
