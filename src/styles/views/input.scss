@@ -14,7 +14,13 @@
 	padding: 0 10px;
 	text-shadow: 0 -1px 0 #000;
 	width: 200px;
+
 }
+
+// FIX - When autocompleteing an input the background is set to white, yuk!
+// input:-internal-autofill-selected  {
+// 	background-color: transparent!important;
+// }
 
 .ie .e-input {
 	line-height: 40px;

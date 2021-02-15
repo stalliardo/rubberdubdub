@@ -20,9 +20,10 @@ class SignUp extends Component {
             confirmPassword: "",
             formIsValid: false,
             isSaving: false,
-            submitButtonDisabled: true
+            submitButtonDisabled: true,
+            errorText: ""
         }
-    }
+    };
 
     setSubmitButtonDisabledState = () => {
         const isEmailValid = validEmail(this.state.email);
@@ -36,13 +37,26 @@ class SignUp extends Component {
         this.setState({
             submitButtonDisabled: !formIsValid
         });
-    }
+    };
 
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         }, () => {
             this.setSubmitButtonDisabledState()
+        });
+    };
+
+    errorTextHandler = (error) => {
+        let errorMessage = "";
+
+        if(error.message) {
+           errorMessage = error.message
+        } else {
+            errorMessage = "Something went wrong! Please try again."
+        }
+        this.setState({
+            errorText: errorMessage
         });
     };
 
@@ -67,7 +81,7 @@ class SignUp extends Component {
             this.props.history.push("/")
         }).catch((error) => {
             console.log("an error occured while creating the new user. Error = ", error);
-            // TODO -> Display errors on page/form
+            this.errorTextHandler(error);
         }).finally(() => {
             this.setState({
                 isSaving: false
@@ -80,7 +94,7 @@ class SignUp extends Component {
     }
 
     OnSigninClicked = () => {
-        this.props.history.push("/login")
+        this.props.history.push("/login");
     }
 
     onGoogleSignup = () => {
@@ -100,7 +114,7 @@ class SignUp extends Component {
             if (error.response.data.error === "Account already exists") {
                 this.props.history.push("/");
             } else {
-                // TODO -> Display errors on page/form
+                this.errorTextHandler(error);
             }
         });
     }
@@ -117,11 +131,10 @@ class SignUp extends Component {
                         <input className="e-input" type="email" name="email" placeholder="Email Address" onChange={this.handleChange} />
                         <input className="e-input" type="password" name="password" placeholder="Password" onChange={this.handleChange} />
                         <input className="e-input" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
-
+                        {this.state.errorText ? <p className="error-text">{this.state.errorText}</p> : null}
                         <div className="signup-form-button-aligner">
                             <Button text="Submit" type="submit" isLoading={this.state.isSaving} disabled={this.state.submitButtonDisabled} />
                         </div>
-
                     </form>
                     <div className="signup-form-button-aligner">
                         <Button clickHandler={this.onGoogleSignup} text="Sign up with Google" />
