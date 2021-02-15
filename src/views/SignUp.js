@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import '../styles/views/signup.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import axios from 'axios';
 import { validEmail } from '../util/validators.js';
+import '../styles/views/signup.scss';
 import "../styles/views/input.scss";
 import "../styles/views/form.scss";
 import "../styles/views/fonts.scss";
@@ -20,7 +20,7 @@ class SignUp extends Component {
             password: "",
             confirmPassword: "",
             formIsValid: false,
-            isSaving: false,
+            isLoading: false,
             submitButtonDisabled: true,
             errorText: ""
         }
@@ -65,7 +65,7 @@ class SignUp extends Component {
         e.preventDefault()
 
         this.setState({
-            isSaving: true
+            isLoading: true
         });
 
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(() => {
@@ -83,11 +83,10 @@ class SignUp extends Component {
         }).catch((error) => {
             console.log("an error occured while creating the new user. Error = ", error);
             this.errorTextHandler(error);
-        }).finally(() => {
             this.setState({
-                isSaving: false
+                isLoading: false
             });
-        });
+        })
     }
 
     onCancel = () => {
@@ -99,8 +98,10 @@ class SignUp extends Component {
     }
 
     onGoogleSignup = () => {
+        this.setState({
+            isLoading: true
+        });
         var provider = new firebase.auth.GoogleAuthProvider();
-
         firebase.auth().signInWithPopup(provider).then(() => {
             return firebase.auth().currentUser.getIdToken(true);
         }).then((token) => {
@@ -116,14 +117,16 @@ class SignUp extends Component {
                 this.props.history.push("/");
             } else {
                 this.errorTextHandler(error);
+                this.setState({
+                    isLoading: false
+                });
             }
         });
     }
 
     render() {
         return (
-            <div className="sign-up-form">
-                {/* <h1>Sign up TODO Add glow effect to titles</h1> */}
+            <div className="auth-form">
                 <h2 className="title">Sign up</h2>
                 <p>Or <span onClick={this.OnSigninClicked}>Sign in to your account</span></p>
                 <div className="neon-borders">
@@ -135,7 +138,7 @@ class SignUp extends Component {
                         <input className="e-input" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
                         {this.state.errorText ? <p className="error-text">{this.state.errorText}</p> : null}
                         <div className="signup-form-button-aligner">
-                            <Button text="Submit" type="submit" isLoading={this.state.isSaving} disabled={this.state.submitButtonDisabled} />
+                            <Button text="Submit" type="submit" isLoading={this.state.isLoading} disabled={this.state.submitButtonDisabled} />
                         </div>
                     </form>
                     <div className="signup-form-button-aligner">
