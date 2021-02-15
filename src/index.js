@@ -11,6 +11,8 @@ import NavBar from './components/NavBar';
 import './styles/app.scss';
 import Login from './views/Login';
 import SignUp from './views/SignUp';
+import background from './assets/images/test2.jpg';
+import TestPage from './views/testpage';
 
 firebase.initializeApp({
     apiKey: "AIzaSyA_Jb4QPVze61ExISOjqVibHKrvYhQ4Ito",
@@ -26,7 +28,10 @@ firebase.initializeApp({
 class App extends Component {
     render() {
         return (
-            <div>
+            <div className="main">
+                <div className="image-container">
+                    <img className="back-image" src={background}></img>
+                </div>
                 <Router>
                     <NavBar />
                     <div>
@@ -35,6 +40,7 @@ class App extends Component {
                                 <Route exact path="/" component={HomePage} />
                                 <Route exact path="/login" component={Login} />
                                 <Route exact path="/signup" component={SignUp} />
+                                <Route exact path="/test" component={TestPage} />
                         </Switch>
                         </div>
                     </div>

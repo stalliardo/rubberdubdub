@@ -1,0 +1,29 @@
+.form-container {
+	width: 30%;
+	margin: auto;
+}
+
+.neon-borders {
+	width: 100%;
+	margin: auto;
+	position: relative;
+	height: fit-content;
+	box-sizing: border-box;
+
+	$border: 5px;
+	color: #FFF;
+	background: #000;
+	background-clip: padding-box; 
+	border: solid $border transparent; 
+	border-radius: 1em;
+  
+	&:before {
+	  content: '';
+	  position: absolute;
+	  top: 0; right: 0; bottom: 0; left: 0;
+	  z-index: -1;
+	  margin: -3px; /* !importanté */
+	  border-radius: inherit; /* !importanté */
+	  background: linear-gradient(to right, rgb(0, 140, 255), rgb(255, 0, 179));
+	}
+  }
