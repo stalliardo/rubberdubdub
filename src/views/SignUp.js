@@ -127,7 +127,7 @@ class SignUp extends Component {
     render() {
         return (
             <div className="auth-form">
-                <h2 className="title">Sign up</h2>
+                <h2 className="neon-text">Sign up</h2>
                 <p>Or <span onClick={this.OnSigninClicked}>Sign in to your account</span></p>
                 <div className="neon-borders">
                     <form onSubmit={(e) => this.onSubmit(e)}>

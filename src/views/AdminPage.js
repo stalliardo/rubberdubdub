@@ -31,21 +31,20 @@ class AdminPage extends Component {
     }
 
     render() {
-
         return (
             <div className="admin-page">
                 <div className="neon-borders">
-                    <h1 className="title">Admin Page</h1>
+                    <h1 className="neon-text">Admin Page</h1>
                     <div className="admin-content">
                         <div className="admin-left-nav">
                             <ul>
-                                <li onClick={this.setView.bind(this, "clips")}>
+                                <li className="neon-text" onClick={this.setView.bind(this, "clips")}>
                                     Clips
                                 </li>
-                                <li>
+                                <li className="neon-text">
                                     Account
                                 </li>
-                                <li onClick={this.setView.bind(this, "button")}>
+                                <li className="neon-text" onClick={this.setView.bind(this, "button")}>
                                     Button
                                 </li>
                             </ul>
