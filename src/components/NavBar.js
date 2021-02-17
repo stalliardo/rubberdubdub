@@ -11,7 +11,8 @@ class NavBar extends Component {
 
         this.state = {
             email: "",
-            isAuthenticated: false
+            isAuthenticated: false,
+            isAdmin: false
         }
     }
 
@@ -21,12 +22,14 @@ class NavBar extends Component {
                 console.log("Nav User = ", user);
                 this.setState({ 
                     email: user.email,
-                    isAuthenticated: true
+                    isAuthenticated: true,
+                    isAdmin: user.email === "stalliardo187@gmail.com"
                  })
             } else {
                 this.setState({
                     email: "",
-                    isAuthenticated: false
+                    isAuthenticated: false,
+                    isAdmin: false
                 })
             }
         });
@@ -51,6 +54,7 @@ class NavBar extends Component {
                 <img src={dubpic} onClick={this.goToHomePage}></img>
                 <div className="nav-links">
                     <span className="nav-identifier">{this.state.email}</span>
+                    {this.state.isAdmin ? <NavLink to="/admin" activeClassName="selected-nav">Admin</NavLink> : null}
                     {!this.state.isAuthenticated ? <NavLink to="/login" activeClassName="selected-nav">Log in</NavLink> : null}
                     {!this.state.isAuthenticated ? <NavLink to="/signup" activeClassName="selected-nav">Sign Up</NavLink> : null}
                     <span onClick={this.onSignOut}>{this.state.isAuthenticated ? "Log out" : ""}</span>
