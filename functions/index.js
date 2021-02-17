@@ -14,4 +14,7 @@ const auth = require('./util/auth');
 const { signUpUser } = require("./api/user");
 app.post('/signup', auth, signUpUser);
 
+const { getClips } = require("./api/twitch");
+app.get('/clips', getClips);
+
 exports.api = functions.https.onRequest(app);

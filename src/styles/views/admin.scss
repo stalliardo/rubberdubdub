@@ -28,6 +28,13 @@
                     border-bottom: 1px solid greenyellow;
                     color: rgb(0, 183, 255);
                     letter-spacing: 2px;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                li:first-of-type {
+                    margin-top: -10px;
                 }
             }
         }

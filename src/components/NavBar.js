@@ -23,6 +23,7 @@ class NavBar extends Component {
                 this.setState({ 
                     email: user.email,
                     isAuthenticated: true,
+                    // FIX Below is not secure!
                     isAdmin: user.email === "stalliardo187@gmail.com"
                  })
             } else {
