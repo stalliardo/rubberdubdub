@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import axios from 'axios';
 import Spinner from './Spinner';
 import "../styles/components/clips.scss";
+import Button from './Button';
 
 
 class Clips extends Component {
@@ -11,7 +12,8 @@ class Clips extends Component {
 
         this.state = {
             isLoading: false,
-            clipThumbnails: []
+            clipThumbnails: [],
+            saveButtonDisabled: false
         }
     }
 
@@ -32,16 +34,19 @@ class Clips extends Component {
         })
     }
 
-   
+    setSaveButtonDisabled = () => {
+        // TODO -> Will be based off the selected images count
+    }
+
+
 
     render() {
 
         return (
-           <div className="clips-page">
-               {/* <h1>Clips page</h1> */}
-
-               {this.state.isLoading ? <Spinner height="100px" width="100px" marginTop="200px"/> : <ClipDisplay thumbnails={this.state.clipThumbnails}/>}
-           </div>
+            <div className="clips-page">
+                {!this.state.isLoading ?  <ClipActions saveButtonDisabled={this.state.saveButtonDisabled}/> : null}
+                {this.state.isLoading ? <Spinner height="100px" width="100px" marginTop="200px" /> : <ClipDisplay thumbnails={this.state.clipThumbnails} />}
+            </div>
         )
     }
 }
@@ -49,14 +54,25 @@ class Clips extends Component {
 export default Clips;
 
 
-function ClipDisplay(props){
-    // This will display the clip thumbnails
-    // Will loop over the thumbnails array and for each display an image with click handler
+function ClipDisplay(props) {
     return (
-        <div className="clip-container">
+        <div className="clip-images">
             {props.thumbnails.map((name, index) => {
-                return <img src={name} key={index}/>
+                return <img src={name} key={index} />
             })}
         </div>
+    )
+}
+
+function ClipActions(props) {
+    return (
+      <div className="clip-actions">
+          <p>
+              Select the five clips that are to be displayed in the homepage scroller.
+          </p>
+         <div className="clips-button">
+            <Button text="Save" disabled={props.saveButtonDisabled}/>
+         </div>
+      </div>
     )
 }

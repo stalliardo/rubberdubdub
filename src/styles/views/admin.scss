@@ -15,7 +15,7 @@
         display: flex;
 
         .admin-left-nav {
-            border-right: 1px solid greenyellow;
+            border-right: 1px solid rgb(255, 47, 203);
             width: 12%;
             height: 100%;
 
@@ -24,7 +24,7 @@
                 padding: 0;
                 li {
                     padding: 0.8rem;
-                    border-bottom: 1px solid greenyellow;
+                    border-bottom: 1px solid rgb(255, 47, 203);
                     color: rgb(0, 183, 255);
                     letter-spacing: 2px;
                     &:hover {

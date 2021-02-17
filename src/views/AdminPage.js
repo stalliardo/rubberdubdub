@@ -12,7 +12,7 @@ class AdminPage extends Component {
         super(props);
 
         this.state = {
-            view: "Clips"
+            view: ""
         }
     }
 
@@ -34,14 +34,14 @@ class AdminPage extends Component {
         return (
             <div className="admin-page">
                 <div className="neon-borders">
-                    <h1 className="neon-text">Admin Page</h1>
+                    <h1 className="neon-text">Admin Page {this.state.view ? `- ${this.state.view}` : ""}</h1>
                     <div className="admin-content">
                         <div className="admin-left-nav">
                             <ul>
                                 <li className="neon-text" onClick={this.setView.bind(this, "clips")}>
                                     Clips
                                 </li>
-                                <li className="neon-text">
+                                <li className="neon-text" onClick={this.setView.bind(this, "account")}>
                                     Account
                                 </li>
                                 <li className="neon-text" onClick={this.setView.bind(this, "button")}>

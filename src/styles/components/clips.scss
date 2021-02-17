@@ -1,4 +1,9 @@
-.clip-container {
+.clips-page {
+	display: flex;
+	flex-direction: column;
+}
+
+.clip-images {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
@@ -11,6 +16,29 @@
 
 		&:hover {
 			cursor: pointer;
+		}
+	}
+}
+
+.clip-actions {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	// margin-bottom: 20px;
+	position: relative;
+	bottom: 20px;
+
+	p {
+		letter-spacing: 2px;
+	}
+
+	.clips-button {
+		width: 200px;
+		position: relative;
+
+		button {
+			margin: 0;
+
 		}
 	}
 }
