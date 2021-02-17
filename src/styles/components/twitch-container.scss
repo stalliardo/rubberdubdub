@@ -1,18 +1,29 @@
 // TODO
 .twitch-container {
-	background-color: rgb(102, 29, 29);
-	height: 450px;
+	border: 1px solid rgb(102, 29, 29);
+	
 
 }
 
 // TODO
 .twitch-scroller {
-	background-color: rgb(80, 25, 25);
+	border: 1px solid rgb(80, 25, 25);
+	height: 350px;
+	display: flex;
+	
 
+	.twitch-video {
+		width: fit-content;
+		margin: auto;
+	}
 }
 
 // TODO
-.twitch-thumbnails {
-	background-color: rgb(58, 4, 4);
+.twitch-thumbnail-container {
+	border: 1px solid rgb(58, 4, 4);
+	height: 300px; // TODO -> height will be fit-content
 
+	.twitch-thumbnail {
+		width: 200px;
+	}
 }
