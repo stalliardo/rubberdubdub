@@ -23,8 +23,8 @@ class HomePage extends Component {
 
         return (
             <div className="homepage">
-                <h1 className="title">Home Page</h1>
-                <div className="neon-borders">
+                <h2 className="title">Home Page</h2>
+                <div >
                     <TwitchContainer />
                 </div>
             </div>
