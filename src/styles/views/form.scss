@@ -3,6 +3,36 @@
 	margin: auto;
 }
 
+.auth-form {
+    width: 30%;
+    margin: auto;
+
+    .title {
+        text-align: center;
+        margin: 5px 10px 40px;
+    }
+
+    h1 {
+        color: rgb(110, 151, 165);
+        text-align: center;
+        margin: 0;
+    }
+
+    p {
+        color: rgb(110, 151, 165);
+        text-align: center;
+        margin: 0;
+
+        span {
+            color: blue;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+	}
+}
+
+
 .neon-borders {
 	width: 100%;
 	margin: auto;
