@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import "firebase/auth";
 import "../styles/views/homepage.scss";
+import "../styles/views/fonts.scss";
+import "../styles/views/form.scss";
+import TwitchContainer from '../components/TwitchContainer';
 
 class HomePage extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -16,16 +19,14 @@ class HomePage extends Component {
         });
     }
 
-    testFirebase = () => {
-       console.log("test called auth test = ", firebase.auth().createUserWithEmailAndPassword());
-    }
+    render() {
 
-    render(){
-        
         return (
-            <div>
-                <h1>This is the home page</h1>
-                {/* <button onClick={this.testFirebase}>Test Firebase</button> */}
+            <div className="homepage">
+                <h1 className="title">Home Page</h1>
+                <div className="neon-borders">
+                    <TwitchContainer />
+                </div>
             </div>
         )
     }
