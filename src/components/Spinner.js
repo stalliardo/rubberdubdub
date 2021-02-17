@@ -9,7 +9,7 @@ class Spinner extends Component {
     
     render() {
         return (
-            <div className="sk-fading-circle" style={{height: this.props.height, width: this.props.width}}>
+            <div className="sk-fading-circle" style={{height: this.props.height, width: this.props.width, marginTop: this.props.marginTop}}>
                 <div className="sk-circle1 sk-circle"></div>
                 <div className="sk-circle2 sk-circle"></div>
                 <div className="sk-circle3 sk-circle"></div>

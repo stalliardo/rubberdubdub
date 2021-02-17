@@ -1,8 +1,7 @@
 .admin-page {
     h1 {
         color: rgb(0, 183, 255);
-        text-align: center;
-        margin: 0;
+        margin: 0 0 0 5px;
     }
 
     .neon-borders {
@@ -12,6 +11,7 @@
     .admin-content {
         width: 100%;
         height: 100%;
+        margin-top: 20px;
         display: flex;
 
         .admin-left-nav {
@@ -24,7 +24,6 @@
                 padding: 0;
                 li {
                     padding: 0.8rem;
-                    // background-color: rgb(36, 36, 36);
                     border-bottom: 1px solid greenyellow;
                     color: rgb(0, 183, 255);
                     letter-spacing: 2px;
@@ -42,6 +41,7 @@
         .admin-outlet-container {
             // border: 1px solid steelblue;
             width: 88%;
+            padding: 20px;
         }
     }
 

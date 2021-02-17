@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Clips from '../views/Clips';
+import Clips from './Clips';
 import Button from './Button';
 
 class AdminContentLoader extends Component {
