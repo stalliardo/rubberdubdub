@@ -12,7 +12,7 @@ class Clips extends Component {
 
         this.state = {
             isLoading: false,
-            clipThumbnails: [],
+            clipData: [],
             saveButtonDisabled: false
         }
     }
@@ -22,10 +22,10 @@ class Clips extends Component {
         this.setState({
             isLoading: true
         })
-        axios.get("/clips").then((thumbnails) => {
-            console.log("clips from axios = ", thumbnails);
+        axios.get("/clips").then((clipData) => {
+            console.log("clips from axios = ", clipData);
             this.setState({
-                clipThumbnails: thumbnails.data
+                clipData: clipData.data
             })
         }).finally(() => {
             this.setState({
@@ -45,7 +45,7 @@ class Clips extends Component {
         return (
             <div className="clips-page">
                 {!this.state.isLoading ?  <ClipActions saveButtonDisabled={this.state.saveButtonDisabled}/> : null}
-                {this.state.isLoading ? <Spinner height="100px" width="100px" marginTop="200px" /> : <ClipDisplay thumbnails={this.state.clipThumbnails} />}
+                {this.state.isLoading ? <Spinner height="100px" width="100px" marginTop="200px" /> : <ClipDisplay clipData={this.state.clipData} />}
             </div>
         )
     }
@@ -57,8 +57,8 @@ export default Clips;
 function ClipDisplay(props) {
     return (
         <div className="clip-images">
-            {props.thumbnails.map((name, index) => {
-                return <img src={name} key={index} />
+            {props.clipData.map((clip, index) => {
+                return <img src={clip.thumbnailUrl} key={index} />
             })}
         </div>
     )
