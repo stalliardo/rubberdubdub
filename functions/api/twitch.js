@@ -14,13 +14,22 @@ exports.getClips = (request, response) => {
         }
     }
 
-    const thumbnailArray = [];
+    // const thumbnailArray = [];
+    const clipData = [];
 
-    axios.get("https://api.twitch.tv/helix/clips?broadcaster_id=407695237&first=5", axiosConfig).then((clips) => {
+    axios.get("https://api.twitch.tv/helix/clips?broadcaster_id=407695237&first=50", axiosConfig).then((clips) => {
+
+        // Need to return the clip url and the title also
+
         clips.data.data.forEach((clip) => {
-            thumbnailArray.push(clip.thumbnail_url)
+            // thumbnailArray.push(clip.thumbnail_url);
+            clipData.push({
+                thumbnailUrl: clip.thumbnail_url,
+                clipTitle: clip.title,
+                clipUrl: clip.url
+            })
         });
-        response.status(200).json(thumbnailArray);
+        response.status(200).json(clipData);
     }).catch((error) => {
         console.log("error getting the clips. Error = ", error);
         response.status(500).json({error: "An error occured while getting the clips"})
