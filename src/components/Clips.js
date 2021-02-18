@@ -38,8 +38,6 @@ class Clips extends Component {
         // TODO -> Will be based off the selected images count
     }
 
-
-
     render() {
 
         return (
@@ -55,10 +53,29 @@ export default Clips;
 
 
 function ClipDisplay(props) {
+
+    // function showClipOptions(e){
+    //     console.log("Show clip ops called + e = ", e);
+    // }
+
+    function someFunction(e){
+        console.log("some func called + e = ", e);
+    }
+
+
     return (
         <div className="clip-images">
             {props.clipData.map((clip, index) => {
-                return <img src={clip.thumbnailUrl} key={index} />
+                return (
+                    <div key={index} className="clip-card">
+                        <div className="hidden-clip-options">
+                            <p onClick={someFunction.bind(this, clip)}>Add to scroller</p>
+                            <p>Set as main clip in scroller</p>
+                        </div>
+                        <img src={clip.thumbnailUrl} />
+                        <p>{clip.clipTitle}</p>
+                    </div>
+                )
             })}
         </div>
     )
