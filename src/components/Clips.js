@@ -68,6 +68,8 @@ function ClipDisplay(props) {
             {props.clipData.map((clip, index) => {
                 return (
                     <div key={index} className="clip-card">
+                        {/* {TODO -> Only display the indicator if its in the scroller} */}
+                        <div className="clip-card-indicator"></div>
                         <div className="hidden-clip-options">
                             <p onClick={someFunction.bind(this, clip)}>Add to scroller</p>
                             <p>Set as main clip in scroller</p>
@@ -93,3 +95,7 @@ function ClipActions(props) {
       </div>
     )
 }
+
+// How will i determine if the clip is in the scroller???
+// Will also need to get the five scroller clips from the backend then check the id (url) aginst those returned from the GET /clips call
+// Need an admin doc in the cloud DB 

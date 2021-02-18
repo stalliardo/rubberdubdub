@@ -12,6 +12,20 @@
 
 	.clip-card {
 		position: relative;
+
+		.clip-card-indicator {
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			border: 1px solid fuchsia;
+			background-color: red;
+			position: absolute;
+			right: -10px;
+			top: -10px;
+			box-shadow: 2px 2px 10px #ff00ff;
+
+		}
+
 		p {
 			color: steelblue;
 			max-width: 320px;
@@ -21,13 +35,13 @@
 			display: none;
 			width: fit-content;
 			height: 100px;
-			// border: 1px solid lightskyblue;
+			border: 1px solid lightskyblue;
 			background-color: #1a1b21;
 			position: absolute;
 			z-index: 2;
 			right: -100px;
 			border-radius: 3px;
-			padding: 5px 20px;
+			padding: 5px 20px 0 20px;
 
 			p {
 				// margin: 0;
