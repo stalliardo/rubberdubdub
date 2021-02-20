@@ -5,25 +5,31 @@
 
 .clip-images {
 	display: flex;
-	justify-content: space-between;
+	// justify-content: space-between;
 	flex-wrap: wrap;
-
+	// align-content: flex-start;
+	// align-items: flex-start;
+	// justify-items: flex-start;
 	
 
 	.clip-card {
 		position: relative;
+		margin-right: 40px;
 
 		.clip-card-indicator {
 			width: 20px;
 			height: 20px;
 			border-radius: 50%;
 			border: 1px solid fuchsia;
-			background-color: red;
+			background-color: rgb(0, 255, 21);
 			position: absolute;
 			right: -10px;
 			top: -10px;
 			box-shadow: 2px 2px 10px #ff00ff;
 
+			&.main {
+				background-color: rgb(0, 247, 255);
+			}
 		}
 
 		p {

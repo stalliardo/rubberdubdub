@@ -69,10 +69,11 @@ function ClipDisplay(props) {
                 return (
                     <div key={index} className="clip-card">
                         {/* {TODO -> Only display the indicator if its in the scroller} */}
-                        <div className="clip-card-indicator"></div>
+                        {clip.isScrollerClip && !clip.isMainScrollerClip ? <div className="clip-card-indicator"></div> : null}
+                        {clip.isMainScrollerClip ? <div className="clip-card-indicator main"></div> : null}
                         <div className="hidden-clip-options">
-                            <p onClick={someFunction.bind(this, clip)}>Add to scroller</p>
-                            <p>Set as main clip in scroller</p>
+                            <p onClick={someFunction.bind(this, clip)}>{clip.isScrollerClip ? "Remove from scroller" : "Add to scroller"}</p>
+                            <p>{clip.isMainScrollerClip ? "Unmark as main clip" : "Set as main clip in scroller"}</p>
                         </div>
                         <img src={clip.thumbnailUrl} />
                         <p>{clip.clipTitle}</p>
