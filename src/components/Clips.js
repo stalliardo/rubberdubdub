@@ -18,14 +18,14 @@ class Clips extends Component {
             isSettingScrollerClips: false,
             isAddingClip: false,
             isRemovingClip: false,
+            editingClipUrl: ""
         }
     }
 
     componentDidMount = () => {
-        // Get the clips by calling the GET /clips api
         this.setState({
             isLoading: true
-        })
+        });
         axios.get("/clips").then((clipData) => {
             console.log("clips from axios = ", clipData);
             this.setState({
@@ -34,8 +34,8 @@ class Clips extends Component {
         }).finally(() => {
             this.setState({
                 isLoading: false
-            })
-        })
+            });
+        });
     }
 
     setSaveButtonDisabled = () => {
@@ -43,72 +43,72 @@ class Clips extends Component {
     }
 
     onSetIsScrollerClip = (clip) => {
-        console.log("some func called + e = ", clip);
         const isScrollerClip = clip.isScrollerClip;
         const isAssigning = !isScrollerClip;
 
         if (isAssigning) {
-
             const newClipArray = this.state.clipData.map((clip) => {
                 if (!clip.isScrollerClip) {
                     clip.imgClass = "dim"
                     return clip
                 } else return clip
-            })
-
-            console.log("newCliparray = ", newClipArray);
+            });
 
             this.setState({
                 clipData: newClipArray,
                 prompt: "Select the clip to replace"
-            })
-
-
-
+            });
         } else {
-
             const newClipArray = this.state.clipData.map((clip) => {
                 if (clip.isScrollerClip || clip.isMainScrollerClip) {
                     clip.imgClass = "dim"
                     return clip
                 } else return clip
-            })
-
-            console.log("newClip array = ", newClipArray);
-
+            });
 
             this.setState({
                 clipData: newClipArray,
                 prompt: "Select the clip to replace"
-            })
+            });
         }
 
-        // Will need to check what operation is happening ie adding a clip or removing, do this via isScollerClip true or false
-        // if scroller clip t
-
         this.setState({
-            isSettingScrollerClips: true
-        })
+            isSettingScrollerClips: true,
+            editingClipUrl: clip.clipUrl
+        });
     };
 
     onReplaceClip = (clip) => {
-        console.log("on replace called + clip = ", clip);
+        const newClipArray = this.state.clipData.map((i) => {
+            if (i.clipUrl === this.state.editingClipUrl) {
+                i.isScrollerClip = !i.isScrollerClip;
+            }
+            if (i.clipUrl === clip.clipUrl) {
+                i.isScrollerClip = !i.isScrollerClip
+            }
+            i.imgClass = "";
+
+            return i;
+        });
+
+        this.setState({
+            clipData: newClipArray,
+            isSettingScrollerClips: false,
+            prompt: "",
+            editingClipUrl: ""
+        });
     }
 
     onCancelSettingScrollerClips = () => {
-        
         this.setState({
             isSettingScrollerClips: false,
             clipData: this.state.clipData.map((clip) => {
                 clip.imgClass = "";
                 return clip;
             }),
-            prompt: ""
-        })
-    }
-
-    imgStyler = () => {
-        return "SOMECLASS"
+            prompt: "",
+            editingClipUrl: ""
+        });
     }
 
     render() {
@@ -116,7 +116,6 @@ class Clips extends Component {
         return (
             <div className="clips-page">
                 {!this.state.isLoading ?
-                    // <ClipActions saveButtonDisabled={this.state.saveButtonDisabled} isSettingScrollerClips={this.state.isSettingScrollerClips}/> 
                     <div className="clip-actions">
                         <p>
                             {this.state.prompt}
@@ -140,29 +139,15 @@ class Clips extends Component {
                                     {clip.isMainScrollerClip ? <div className={`clip-card-indicator main ${clip.imgClass}`}></div> : null}
                                     {clip.imgClass !== "dim" ?
                                         <div className="hidden-clip-options">
-
-
-
-
-
                                             {
                                                 this.state.isSettingScrollerClips ?
-                                                   <p onClick={this.onReplaceClip.bind(this, clip)}>Replace with this clip</p>
+                                                    <p onClick={this.onReplaceClip.bind(this, clip)}>Replace with this clip</p>
 
-                                                    :<div>
-                                                        <p onClick={this.onSetIsScrollerClip.bind(this, clip)}>{clip.isScrollerClip ? "Remove from scroller" : "Add to scroller"}</p>
+                                                    : <div>
+                                                        {!clip.isMainScrollerClip ? <p onClick={this.onSetIsScrollerClip.bind(this, clip)}>{clip.isScrollerClip ? "Remove from scroller" : "Add to scroller"}</p> : null}
                                                         <p>{clip.isMainScrollerClip ? "Unmark as main clip" : "Set as main clip in scroller"}</p>
                                                     </div>
                                             }
-
-
-
-
-
-
-
-
-
                                         </div>
                                         : null}
                                     <img src={clip.thumbnailUrl} className={clip.imgClass} />
@@ -178,9 +163,3 @@ class Clips extends Component {
 }
 
 export default Clips;
-
-
-// The pop up options needs to be smarted
-// When the user is either adding or deleting the content should change
-// if adding the box should now say "remove this clip from scroller"
-// If the user is removing the box should say "Replace with this clip"
