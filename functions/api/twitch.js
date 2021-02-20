@@ -5,42 +5,57 @@ const functions = require("firebase-functions");
 const axios = require("axios");
 const clientId = "lj9dkyd9oj3qjslm3dp20fytryg94v";
 
-exports.getClips = (request, response) => {
+function getScrollerClipsFromFirebase() {
+    return db.doc(`/admin/Pyy1WxeqiNyX3ogcWMIq`).get();
+}
 
+exports.getClips = (request, response) => {
     const axiosConfig = {
         headers: {
             "Authorization": `Bearer ${functions.config().twitch.token}`,
             "client-id": clientId,
         }
     }
-
-    // const thumbnailArray = [];
     const clipData = [];
-
     axios.get("https://api.twitch.tv/helix/clips?broadcaster_id=407695237&first=50", axiosConfig).then((clips) => {
 
-        // Need to return the clip url and the title also
-
         clips.data.data.forEach((clip) => {
-            // thumbnailArray.push(clip.thumbnail_url);
             clipData.push({
                 thumbnailUrl: clip.thumbnail_url,
                 clipTitle: clip.title,
-                clipUrl: clip.url
+                clipUrl: clip.url,
+                isScrollerClip: false
             })
         });
+
+        return getScrollerClipsFromFirebase();
+    }).then((doc) => {
+        const clipUrls = doc.data().scrollerUrls;
+        const mainScrollerClipUrl = doc.data().main;
+
+        clipUrls.forEach((url) => {
+            const scrollerClip = clipData.find(item => item.clipUrl === url)
+            if (scrollerClip) {
+                scrollerClip.isScrollerClip = true;
+            }
+        });
+
+        const mainclip = clipData.find(item => item.clipUrl === mainScrollerClipUrl);
+        mainclip.isMainScrollerClip = true;
+        console.log("main clip = ", mainclip);
+
         response.status(200).json(clipData);
-    }).catch((error) => {
+    }).catch ((error) => {
         console.log("error getting the clips. Error = ", error);
         response.status(500).json({ error: "An error occured while getting the clips" })
     })
-
 }
 
+
+
 exports.getScrollerClips = (request, response) => {
-    // Will need to call the backend and get the admin -> Pyy1WxeqiNyX3ogcWMIq -> main and scrollerUrls docs
-    db.doc(`/admin/Pyy1WxeqiNyX3ogcWMIq`).get().then((doc) => {
-        console.log("doc  = = ", doc.data());
+    getScrollerClipsFromFirebase().then((doc) => {
+        console.log("doc  = = ", doc.data().scrollerUrls);
         response.status(200).json(doc.data())
     }).catch((error) => {
         console.log("There was an error getting the admin doc. Error = ", error);
@@ -68,9 +83,9 @@ exports.setScrollerClips = (request, response) => {
     const document = db.collection("admin").doc("Pyy1WxeqiNyX3ogcWMIq");
     document.update(request.body).then(() => {
         console.log("update Success!");
-        response.status(200).json({message: "Scroller urls updated succussfully!"});
+        response.status(200).json({ message: "Scroller urls updated succussfully!" });
     }).catch((error) => {
         console.log("Error updating scrollerUrls. Error = ", error);
-        response.status(500).json({error: error.code})
+        response.status(500).json({ error: error.code })
     });
 }

@@ -5,7 +5,8 @@
     }
 
     .neon-borders {
-        height: 800px;
+        min-height: 800px;
+        height: fit-content;
     }
 
     .admin-content {
@@ -17,7 +18,7 @@
         .admin-left-nav {
             border-right: 1px solid rgb(255, 47, 203);
             width: 12%;
-            height: 100%;
+            min-height: 800px;
 
             ul {
                 list-style-type: none;
