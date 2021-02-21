@@ -16,6 +16,7 @@ class Clips extends Component {
             clipData: [],
             saveButtonDisabled: false,
             isSettingScrollerClips: false,
+            isSettingMainClip: false,
             isAddingClip: false,
             isRemovingClip: false,
             editingClipUrl: ""
@@ -78,6 +79,54 @@ class Clips extends Component {
         });
     };
 
+    onSetMainClip = (clipArg) => {
+        console.log("set main called");
+
+        const isSettingAsMain = !clipArg.isMainScrollerClip;
+
+        const clipData = this.state.clipData;
+
+        // rebuild the clipArray, find the clip that is currently main and flip the isMainClip value
+        // Set isMainClip on the clip arg 
+        // dim the current main clip
+
+        // const newClipArray = this.state.clipData.map((clip) => {
+        //     // dim the current clip
+        // })
+
+        const mainClip = clipData.find(clip => clip.isMainScrollerClip === true);
+
+        if (!isSettingAsMain) {
+            mainClip.imgClass = "dim";
+            this.setState({
+                prompt: "Select the main clip you want to use.",
+                isSettingMainClip: true
+            });
+
+            // ui in semi state
+            // Now set the isSettingMainClip in the state
+            // show the cancel button
+            // change the text in the pop up options to "Set as main"
+            // will need some logic in the cancel function to see what is being set when cancel is clicked
+            // What happens if the user click a clip that is already in the scroller?
+
+            return;
+        }
+
+        mainClip.isMainScrollerClip = false;
+
+        this.setState({
+            clipData
+        });
+        console.log("mainclip = ", mainClip);
+
+        console.log("this.clipData = ", clipData);
+    }
+
+    onSwitchMainClip = (clip) => {
+        console.log("on switch main called");
+    }
+
     onReplaceClip = (clip) => {
         const newClipArray = this.state.clipData.map((i) => {
             if (i.clipUrl === this.state.editingClipUrl) {
@@ -100,15 +149,32 @@ class Clips extends Component {
     }
 
     onCancelSettingScrollerClips = () => {
-        this.setState({
-            isSettingScrollerClips: false,
-            clipData: this.state.clipData.map((clip) => {
-                clip.imgClass = "";
-                return clip;
-            }),
-            prompt: "",
-            editingClipUrl: ""
-        });
+
+        // Check what is being set when cancel was clicked
+        if(this.state.isSettingScrollerClips) {
+            this.setState({
+                isSettingScrollerClips: false,
+                clipData: this.state.clipData.map((clip) => {
+                    clip.imgClass = "";
+                    return clip;
+                }),
+                prompt: "",
+                editingClipUrl: ""
+            });
+        } else if (this.state.isSettingMainClip) {
+            // Need to set the main clip back to its original state
+            const clipData = this.state.clipData;
+            const mainClip = clipData.find(clip => clip.isMainScrollerClip);
+            mainClip.imgClass = "";
+
+            this.setState({
+                isSettingMainClip: false,
+                clipData,
+                prompt: "",
+            });
+        }
+
+       
     }
 
     render() {
@@ -123,7 +189,7 @@ class Clips extends Component {
                         <div className="clip-buttons">
 
                             <Button text="Save" disabled={this.state.saveButtonDisabled} />
-                            {this.state.isSettingScrollerClips ? <Button text="Cancel" clickHandler={this.onCancelSettingScrollerClips} /> : null}
+                            {this.state.isSettingScrollerClips || this.state.isSettingMainClip ? <Button text="Cancel" clickHandler={this.onCancelSettingScrollerClips} /> : null}
                         </div>
                     </div>
                     : null}
@@ -135,7 +201,7 @@ class Clips extends Component {
                             return (
                                 <div key={index} className="clip-card">
                                     {/* {TODO -> Only display the indicator if its in the scroller} */}
-                                    {clip.isScrollerClip && !clip.isMainScrollerClip ? <div className={`clip-card-indicator ${clip.imgClass}`}></div> : null}
+                                    {clip.isScrollerClip ? <div className={`clip-card-indicator ${clip.imgClass}`}></div> : null}
                                     {clip.isMainScrollerClip ? <div className={`clip-card-indicator main ${clip.imgClass}`}></div> : null}
                                     {clip.imgClass !== "dim" ?
                                         <div className="hidden-clip-options">
@@ -144,9 +210,22 @@ class Clips extends Component {
                                                     <p onClick={this.onReplaceClip.bind(this, clip)}>Replace with this clip</p>
 
                                                     : <div>
-                                                        {!clip.isMainScrollerClip ? <p onClick={this.onSetIsScrollerClip.bind(this, clip)}>{clip.isScrollerClip ? "Remove from scroller" : "Add to scroller"}</p> : null}
-                                                        <p>{clip.isMainScrollerClip ? "Unmark as main clip" : "Set as main clip in scroller"}</p>
+                                                        {
+                                                            !this.state.isSettingMainClip ? 
+                                                            <div>
+                                                                {!clip.isMainScrollerClip ? <p onClick={this.onSetIsScrollerClip.bind(this, clip)}>{clip.isScrollerClip ? "Remove from scroller" : "Add to scroller"}</p> : null}
+                                                                <p onClick={this.onSetMainClip.bind(this, clip)}>{clip.isMainScrollerClip ? "Unmark as main clip" : "Set as main clip in scroller"}</p>
+                                                            </div>
+                                                            : null
+                                                        }
                                                     </div>
+                                            }
+                                            {
+                                                this.state.isSettingMainClip ?
+                                                    <p onClick={this.onSwitchMainClip.bind(this, clip)}>Replace with this clip</p>
+
+                                                    : null
+
                                             }
                                         </div>
                                         : null}

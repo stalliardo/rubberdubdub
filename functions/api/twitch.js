@@ -35,14 +35,13 @@ exports.getClips = (request, response) => {
 
         clipUrls.forEach((url) => {
             const scrollerClip = clipData.find(item => item.clipUrl === url)
-            if (scrollerClip) {
+            if (scrollerClip && scrollerClip.clipUrl !== mainScrollerClipUrl) {
                 scrollerClip.isScrollerClip = true;
             }
         });
 
         const mainclip = clipData.find(item => item.clipUrl === mainScrollerClipUrl);
         mainclip.isMainScrollerClip = true;
-        console.log("main clip = ", mainclip);
 
         response.status(200).json(clipData);
     }).catch ((error) => {
