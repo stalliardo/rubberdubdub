@@ -193,7 +193,7 @@ class Clips extends Component {
                             {this.state.prompt}
                         </p>
                         <div className="clip-buttons">
-                            <Button text="Save" disabled={this.state.saveButtonDisabled} clickHandler={this.onSaveClicked} />
+                            <Button text="Save Changes" disabled={this.state.saveButtonDisabled} clickHandler={this.onSaveClicked} />
                             {this.state.isSettingScrollerClips || this.state.isSettingMainClip ? <Button text="Cancel" clickHandler={this.onCancelSettingScrollerClips} /> : null}
                         </div>
                     </div>
@@ -239,6 +239,9 @@ class Clips extends Component {
                                 </div>
                             )
                         })}
+                        <div className="clip-space-filler"></div>
+                        <div className="clip-space-filler"></div>
+                        <div className="clip-space-filler"></div>
                     </div>
                 }
             </div>
