@@ -80,20 +80,8 @@ class Clips extends Component {
     };
 
     onSetMainClip = (clipArg) => {
-        console.log("set main called");
-
         const isSettingAsMain = !clipArg.isMainScrollerClip;
-
         const clipData = this.state.clipData;
-
-        // rebuild the clipArray, find the clip that is currently main and flip the isMainClip value
-        // Set isMainClip on the clip arg 
-        // dim the current main clip
-
-        // const newClipArray = this.state.clipData.map((clip) => {
-        //     // dim the current clip
-        // })
-
         const mainClip = clipData.find(clip => clip.isMainScrollerClip === true);
 
         if (!isSettingAsMain) {
@@ -102,29 +90,35 @@ class Clips extends Component {
                 prompt: "Select the main clip you want to use.",
                 isSettingMainClip: true
             });
-
-            // ui in semi state
-            // Now set the isSettingMainClip in the state
-            // show the cancel button
-            // change the text in the pop up options to "Set as main"
-            // will need some logic in the cancel function to see what is being set when cancel is clicked
-            // What happens if the user click a clip that is already in the scroller?
-
             return;
         }
 
         mainClip.isMainScrollerClip = false;
+        clipArg.isMainScrollerClip = true;
 
         this.setState({
             clipData
         });
-        console.log("mainclip = ", mainClip);
-
-        console.log("this.clipData = ", clipData);
     }
 
     onSwitchMainClip = (clip) => {
-        console.log("on switch main called");
+        const selectedIsScrollerClip = clip.isScrollerClip;
+        const clipData = this.state.clipData;
+        const currentMainClip = clipData.find(c => c.isMainScrollerClip);
+        currentMainClip.isMainScrollerClip = false;
+        currentMainClip.imgClass = "";
+        clip.isMainScrollerClip = true;
+
+        if(selectedIsScrollerClip) {
+            currentMainClip.isScrollerClip = true;
+            clip.isScrollerClip = false;
+        }
+
+        this.setState({
+            clipData,
+            prompt: "",
+            isSettingMainClip: false
+        });
     }
 
     onReplaceClip = (clip) => {
@@ -149,8 +143,6 @@ class Clips extends Component {
     }
 
     onCancelSettingScrollerClips = () => {
-
-        // Check what is being set when cancel was clicked
         if(this.state.isSettingScrollerClips) {
             this.setState({
                 isSettingScrollerClips: false,
@@ -162,7 +154,6 @@ class Clips extends Component {
                 editingClipUrl: ""
             });
         } else if (this.state.isSettingMainClip) {
-            // Need to set the main clip back to its original state
             const clipData = this.state.clipData;
             const mainClip = clipData.find(clip => clip.isMainScrollerClip);
             mainClip.imgClass = "";
@@ -173,8 +164,6 @@ class Clips extends Component {
                 prompt: "",
             });
         }
-
-       
     }
 
     render() {
