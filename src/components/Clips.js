@@ -43,6 +43,23 @@ class Clips extends Component {
         // TODO -> Will be based off the selected images count
     }
 
+    onSaveClicked = () => {
+        // DOING
+        const clipData = this.state.clipData;
+        const mainclipUrl = clipData.find(clip => clip.isMainScrollerClip).clipUrl;
+        const scrollerUrls = clipData.filter(clip => clip.isScrollerClip).map((i) => {
+            return i.clipUrl
+        });
+
+
+        const clipObject = {
+            main: mainclipUrl,
+            scrollerUrls
+        }
+
+        console.log("clipObject to be sent to the backend for updating = ", clipObject);
+    }
+
     onSetIsScrollerClip = (clip) => {
         const isScrollerClip = clip.isScrollerClip;
         const isAssigning = !isScrollerClip;
@@ -176,8 +193,7 @@ class Clips extends Component {
                             {this.state.prompt}
                         </p>
                         <div className="clip-buttons">
-
-                            <Button text="Save" disabled={this.state.saveButtonDisabled} />
+                            <Button text="Save" disabled={this.state.saveButtonDisabled} clickHandler={this.onSaveClicked} />
                             {this.state.isSettingScrollerClips || this.state.isSettingMainClip ? <Button text="Cancel" clickHandler={this.onCancelSettingScrollerClips} /> : null}
                         </div>
                     </div>
