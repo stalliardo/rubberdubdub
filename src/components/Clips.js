@@ -7,31 +7,41 @@ import Button from './Button';
 
 
 class Clips extends Component {
+
+   defaultState = {
+       clipData: []
+   }
+
     constructor(props) {
         super(props);
+
 
         this.state = {
             isLoading: false,
             prompt: "",
-            clipData: [],
+            clipData: this.defaultState.clipData,
             saveButtonDisabled: false,
             isSettingScrollerClips: false,
             isSettingMainClip: false,
             isAddingClip: false,
             isRemovingClip: false,
-            editingClipUrl: ""
+            editingClipUrl: "",            
         }
     }
 
     componentDidMount = () => {
+        console.log("did mount called");
         this.setState({
             isLoading: true
         });
-        axios.get("/clips").then((clipData) => {
-            console.log("clips from axios = ", clipData);
+        axios.get("/clips").then((cData) => {
+            const dataFromAxios = cData.data;
+            this.defaultState.clipData = dataFromAxios
+
             this.setState({
-                clipData: clipData.data
+                clipData: dataFromAxios
             })
+
         }).finally(() => {
             this.setState({
                 isLoading: false
@@ -45,49 +55,57 @@ class Clips extends Component {
 
     onSaveClicked = () => {
         // DOING
-        const clipData = this.state.clipData;
-        const mainclipUrl = clipData.find(clip => clip.isMainScrollerClip).clipUrl;
-        const scrollerUrls = clipData.filter(clip => clip.isScrollerClip).map((i) => {
-            return i.clipUrl
-        });
+        // const clipData = [...this.state.clipData];
+        // const mainclipUrl = clipData.find(clip => clip.isMainScrollerClip).clipUrl;
+        // const scrollerUrls = clipData.filter(clip => clip.isScrollerClip).map((i) => {
+        //     return i.clipUrl
+        // });
 
+        // const clipObject = {
+        //     main: mainclipUrl,
+        //     scrollerUrls
+        // }
 
-        const clipObject = {
-            main: mainclipUrl,
-            scrollerUrls
-        }
+        // console.log("clipObject to be sent to the backend for updating = ", clipObject);
 
-        console.log("clipObject to be sent to the backend for updating = ", clipObject);
+        // console.log("initial state = ", this.defaultState.clipData === this.state.clipData);
+        console.log("initial state = ", this.defaultState.clipData);
+        console.log("current state = ", this.state.clipData);
+
+        // Something to with function binding?????
+
+        // console.log("clipdata = ", this.state.clipData);
+
+        // console.log("Checking state equality = ", initialState === this.state.clipData);
     }
 
     onSetIsScrollerClip = (clip) => {
+
         const isScrollerClip = clip.isScrollerClip;
         const isAssigning = !isScrollerClip;
 
         if (isAssigning) {
-            const newClipArray = this.state.clipData.map((clip) => {
-                if (!clip.isScrollerClip) {
-                    clip.imgClass = "dim"
-                    return clip
-                } else return clip
-            });
-
-            this.setState({
-                clipData: newClipArray,
+            this.setState(prevState => ({
+                clipData: prevState.clipData.map((clip) => {
+                    if(!clip.isScrollerClip){
+                        clip.imgClass = "dim"
+                        return clip;
+                    } else {
+                        return clip;
+                    }
+                }),
                 prompt: "Select the clip to replace"
-            });
+            }))
         } else {
-            const newClipArray = this.state.clipData.map((clip) => {
-                if (clip.isScrollerClip || clip.isMainScrollerClip) {
-                    clip.imgClass = "dim"
-                    return clip
-                } else return clip
-            });
-
-            this.setState({
-                clipData: newClipArray,
+            this.setState(prevState => ({
+                clipData: prevState.clipData.map((clip) => {
+                    if (clip.isScrollerClip || clip.isMainScrollerClip) {
+                        clip.imgClass = "dim"
+                        return clip;
+                    } else return clip;
+                }),
                 prompt: "Select the clip to replace"
-            });
+            }));
         }
 
         this.setState({
@@ -97,33 +115,71 @@ class Clips extends Component {
     };
 
     onSetMainClip = (clipArg) => {
+
+
         const isSettingAsMain = !clipArg.isMainScrollerClip;
-        const clipData = this.state.clipData;
-        const mainClip = clipData.find(clip => clip.isMainScrollerClip === true);
+        const clipData = [...this.state.clipData];
+        const forIndex = clipData.find(clip => clip.isMainScrollerClip === true);
+        const mainClip = {...clipData.find(clip => clip.isMainScrollerClip === true)}
+        const index = clipData.indexOf(forIndex);
+
 
         if (!isSettingAsMain) {
+            console.log("not setting as main called");
             mainClip.imgClass = "dim";
+            
+            clipData[index] = mainClip;
             this.setState({
                 prompt: "Select the main clip you want to use.",
-                isSettingMainClip: true
+                isSettingMainClip: true,
+                clipData
             });
+
             return;
         }
 
+        console.log("Setting as main called");
         mainClip.isMainScrollerClip = false;
-        clipArg.isMainScrollerClip = true;
+
+        if(clipArg.isScrollerClip) {
+            mainClip.isScrollerClip = true;
+        }
+
+        const scrollerClipForIndex = clipData.find(clip => clip.clipUrl === clipArg.clipUrl);
+        const scrollerClipIndex = clipData.indexOf(scrollerClipForIndex);
+        const scrollerClip = {...clipData.find(clip => clip.clipUrl === clipArg.clipUrl)};
+
+        scrollerClip.isMainScrollerClip = true;
+        scrollerClip.isScrollerClip = false;
+
+
+        clipData[index] = mainClip;
+        clipData[scrollerClipIndex] = scrollerClip;
+
 
         this.setState({
-            clipData
+            clipData: clipData
         });
+
+
     }
 
-    onSwitchMainClip = (clip) => {
+    onSwitchMainClip = (clip) => {        
         const selectedIsScrollerClip = clip.isScrollerClip;
-        const clipData = this.state.clipData;
-        const currentMainClip = clipData.find(c => c.isMainScrollerClip);
+        // Make shallow copy...
+        const clipData = [...this.state.clipData];
+
+        // For getting the index...
+        const currentMainClipIndex = clipData.find(c => c.isMainScrollerClip);
+        const index = clipData.indexOf(currentMainClipIndex);
+
+        // Make shallow copy of the mutating object...
+        const currentMainClip = {...clipData.find(c => c.isMainScrollerClip)};
+
+        // Perform mutations...
         currentMainClip.isMainScrollerClip = false;
         currentMainClip.imgClass = "";
+        
         clip.isMainScrollerClip = true;
 
         if(selectedIsScrollerClip) {
@@ -131,53 +187,70 @@ class Clips extends Component {
             clip.isScrollerClip = false;
         }
 
+        clipData[index] = currentMainClip;
+
         this.setState({
-            clipData,
+            clipData: clipData,
             prompt: "",
             isSettingMainClip: false
         });
     }
 
     onReplaceClip = (clip) => {
-        const newClipArray = this.state.clipData.map((i) => {
-            if (i.clipUrl === this.state.editingClipUrl) {
-                i.isScrollerClip = !i.isScrollerClip;
-            }
-            if (i.clipUrl === clip.clipUrl) {
-                i.isScrollerClip = !i.isScrollerClip
-            }
-            i.imgClass = "";
-
-            return i;
-        });
-
-        this.setState({
-            clipData: newClipArray,
+        this.setState(prevState => ({
+            clipData: prevState.clipData.map((i) => {
+                if (i.clipUrl === this.state.editingClipUrl) {
+                    i.isScrollerClip = !i.isScrollerClip;
+                }
+                if (i.clipUrl === clip.clipUrl) {
+                    i.isScrollerClip = !i.isScrollerClip
+                }
+                i.imgClass = "";
+    
+                return i;
+            }),
             isSettingScrollerClips: false,
             prompt: "",
             editingClipUrl: ""
-        });
+        }))
+
+        // this.setState({
+        //     clipData: newClipArray,
+        //     isSettingScrollerClips: false,
+        //     prompt: "",
+        //     editingClipUrl: ""
+        // });
     }
 
     onCancelSettingScrollerClips = () => {
         if(this.state.isSettingScrollerClips) {
-            this.setState({
+
+            this.setState(prevState => ({
                 isSettingScrollerClips: false,
-                clipData: this.state.clipData.map((clip) => {
+                clipData: prevState.clipData.map((clip) => {
                     clip.imgClass = "";
                     return clip;
                 }),
                 prompt: "",
                 editingClipUrl: ""
-            });
+            }))
+            // this.setState({
+            //     isSettingScrollerClips: false,
+            //     clipData: this.state.clipData.map((clip) => {
+            //         clip.imgClass = "";
+            //         return clip;
+            //     }),
+            //     prompt: "",
+            //     editingClipUrl: ""
+            // });
         } else if (this.state.isSettingMainClip) {
-            const clipData = this.state.clipData;
+            const clipData = [...this.state.clipData];
             const mainClip = clipData.find(clip => clip.isMainScrollerClip);
             mainClip.imgClass = "";
 
             this.setState({
                 isSettingMainClip: false,
-                clipData,
+                clipData: clipData,
                 prompt: "",
             });
         }
@@ -250,3 +323,19 @@ class Clips extends Component {
 }
 
 export default Clips;
+
+
+// Soloution for initial state problem
+// 1 - Create shallow copy of the array
+    // Const clipData = [...this.state.clipData]
+// 2 - Create Shallow copy of thing you want to mutate
+    // const mainClip = {...clipdata.find(clip => clip.isMainClip)}
+// 3 Get the index of the mutated item
+    // const clipObjectForIndex = clipData.find(clip => clip.isMainclip)
+    // const index = clipData.indexOf(clipObjectForIndex)
+// 4 - Do mutations
+    // mainClip.someProp = SomeVal
+// Add the mutated object back intot he arrray
+    // clipData[index] = mainClip
+// 5 set the state to the copy
+    // this.setState({clipData: clipData})
