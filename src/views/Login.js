@@ -102,7 +102,7 @@ class Login extends Component {
     render() {
         return (
             <div className="auth-form">
-                <h2 className="title">Log In</h2>
+                <h2 className="neon-text">Log In</h2>
                 <div className="neon-borders">
                     <form onSubmit={(e) => this.onSubmit(e)}>
 
