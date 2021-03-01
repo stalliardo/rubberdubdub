@@ -24,7 +24,8 @@ exports.getClips = (request, response) => {
                 thumbnailUrl: clip.thumbnail_url,
                 clipTitle: clip.title,
                 clipUrl: clip.url,
-                isScrollerClip: false
+                isScrollerClip: false,
+                isMainScrollerClip: false
             })
         });
 
@@ -64,21 +65,6 @@ exports.getScrollerClips = (request, response) => {
 }
 
 exports.setScrollerClips = (request, response) => {
-    // DOING
-    // Check the request structure?
-
-    // Request.body will need to look lile
-    // {
-    //     main: "https://clips.twitch.tv/ComfortableOddChipmunkBatChest",
-    //         scrollerUrls: [
-    //             "https://clips.twitch.tv/ComfortableOddChipmunkBatChest",
-    //             "https://clips.twitch.tv/RelentlessAttractiveHamburgerVoHiYo-B4Nl5Hss--FwGoC8",
-    //             "https://clips.twitch.tv/VibrantDiligentSquidBatChest-QRQHA7lPKFzGNcoJ",
-    //             "https://clips.twitch.tv/TiredBoxyAsteriskDBstyle",
-    //             "https://clips.twitch.tv/RelievedThankfulPepperKappaWealth"
-    //         ]
-    // }
-
     const document = db.collection("admin").doc("Pyy1WxeqiNyX3ogcWMIq");
     document.update(request.body).then(() => {
         console.log("update Success!");

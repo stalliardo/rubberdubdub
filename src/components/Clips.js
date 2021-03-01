@@ -5,16 +5,13 @@ import Spinner from './Spinner';
 import "../styles/components/clips.scss";
 import Button from './Button';
 
-
 class Clips extends Component {
-
-   defaultState = {
-       clipData: []
-   }
+    defaultState = {
+        clipData: []
+    }
 
     constructor(props) {
         super(props);
-
 
         this.state = {
             isLoading: false,
@@ -25,7 +22,7 @@ class Clips extends Component {
             isSettingMainClip: false,
             isAddingClip: false,
             isRemovingClip: false,
-            editingClipUrl: "",            
+            editingClipUrl: "",
         }
     }
 
@@ -36,6 +33,7 @@ class Clips extends Component {
         });
         axios.get("/clips").then((cData) => {
             const dataFromAxios = cData.data;
+            console.log("data from axios = ", dataFromAxios);
             this.defaultState.clipData = dataFromAxios
 
             this.setState({
@@ -54,29 +52,22 @@ class Clips extends Component {
     }
 
     onSaveClicked = () => {
-        // DOING
-        // const clipData = [...this.state.clipData];
-        // const mainclipUrl = clipData.find(clip => clip.isMainScrollerClip).clipUrl;
-        // const scrollerUrls = clipData.filter(clip => clip.isScrollerClip).map((i) => {
-        //     return i.clipUrl
-        // });
+        const clipData = [...this.state.clipData];
+        const mainclipUrl = clipData.find(clip => clip.isMainScrollerClip).clipUrl;
+        const scrollerUrls = clipData.filter(clip => clip.isScrollerClip).map((i) => {
+            return i.clipUrl
+        });
 
-        // const clipObject = {
-        //     main: mainclipUrl,
-        //     scrollerUrls
-        // }
+        const clipObject = {
+            main: mainclipUrl,
+            scrollerUrls
+        }
 
-        // console.log("clipObject to be sent to the backend for updating = ", clipObject);
-
-        // console.log("initial state = ", this.defaultState.clipData === this.state.clipData);
-        console.log("initial state = ", this.defaultState.clipData);
-        console.log("current state = ", this.state.clipData);
-
-        // Something to with function binding?????
-
-        // console.log("clipdata = ", this.state.clipData);
-
-        // console.log("Checking state equality = ", initialState === this.state.clipData);
+        axios.post("/scrollerClips", clipObject).then((response) => {
+            console.log("respnise from sending the clip onject to the backend = ", response);
+        }).catch((error) => {
+            console.log("error from setting scroller clips = ", error);
+        });
     }
 
     onSetIsScrollerClip = (clip) => {
@@ -87,7 +78,7 @@ class Clips extends Component {
         if (isAssigning) {
             this.setState(prevState => ({
                 clipData: prevState.clipData.map((clip) => {
-                    if(!clip.isScrollerClip){
+                    if (!clip.isScrollerClip) {
                         clip.imgClass = "dim"
                         return clip;
                     } else {
@@ -115,19 +106,16 @@ class Clips extends Component {
     };
 
     onSetMainClip = (clipArg) => {
-
-
         const isSettingAsMain = !clipArg.isMainScrollerClip;
         const clipData = [...this.state.clipData];
         const forIndex = clipData.find(clip => clip.isMainScrollerClip === true);
-        const mainClip = {...clipData.find(clip => clip.isMainScrollerClip === true)}
+        const mainClip = { ...clipData.find(clip => clip.isMainScrollerClip === true) }
         const index = clipData.indexOf(forIndex);
-
 
         if (!isSettingAsMain) {
             console.log("not setting as main called");
             mainClip.imgClass = "dim";
-            
+
             clipData[index] = mainClip;
             this.setState({
                 prompt: "Select the main clip you want to use.",
@@ -138,33 +126,28 @@ class Clips extends Component {
             return;
         }
 
-        console.log("Setting as main called");
         mainClip.isMainScrollerClip = false;
 
-        if(clipArg.isScrollerClip) {
+        if (clipArg.isScrollerClip) {
             mainClip.isScrollerClip = true;
         }
 
         const scrollerClipForIndex = clipData.find(clip => clip.clipUrl === clipArg.clipUrl);
         const scrollerClipIndex = clipData.indexOf(scrollerClipForIndex);
-        const scrollerClip = {...clipData.find(clip => clip.clipUrl === clipArg.clipUrl)};
+        const scrollerClip = { ...clipData.find(clip => clip.clipUrl === clipArg.clipUrl) };
 
         scrollerClip.isMainScrollerClip = true;
         scrollerClip.isScrollerClip = false;
 
-
         clipData[index] = mainClip;
         clipData[scrollerClipIndex] = scrollerClip;
-
 
         this.setState({
             clipData: clipData
         });
-
-
     }
 
-    onSwitchMainClip = (clip) => {        
+    onSwitchMainClip = (clip) => {
         const selectedIsScrollerClip = clip.isScrollerClip;
         // Make shallow copy...
         const clipData = [...this.state.clipData];
@@ -174,15 +157,15 @@ class Clips extends Component {
         const index = clipData.indexOf(currentMainClipIndex);
 
         // Make shallow copy of the mutating object...
-        const currentMainClip = {...clipData.find(c => c.isMainScrollerClip)};
+        const currentMainClip = { ...clipData.find(c => c.isMainScrollerClip) };
 
         // Perform mutations...
         currentMainClip.isMainScrollerClip = false;
         currentMainClip.imgClass = "";
-        
+
         clip.isMainScrollerClip = true;
 
-        if(selectedIsScrollerClip) {
+        if (selectedIsScrollerClip) {
             currentMainClip.isScrollerClip = true;
             clip.isScrollerClip = false;
         }
@@ -206,24 +189,17 @@ class Clips extends Component {
                     i.isScrollerClip = !i.isScrollerClip
                 }
                 i.imgClass = "";
-    
+
                 return i;
             }),
             isSettingScrollerClips: false,
             prompt: "",
             editingClipUrl: ""
         }))
-
-        // this.setState({
-        //     clipData: newClipArray,
-        //     isSettingScrollerClips: false,
-        //     prompt: "",
-        //     editingClipUrl: ""
-        // });
     }
 
     onCancelSettingScrollerClips = () => {
-        if(this.state.isSettingScrollerClips) {
+        if (this.state.isSettingScrollerClips) {
 
             this.setState(prevState => ({
                 isSettingScrollerClips: false,
@@ -234,15 +210,6 @@ class Clips extends Component {
                 prompt: "",
                 editingClipUrl: ""
             }))
-            // this.setState({
-            //     isSettingScrollerClips: false,
-            //     clipData: this.state.clipData.map((clip) => {
-            //         clip.imgClass = "";
-            //         return clip;
-            //     }),
-            //     prompt: "",
-            //     editingClipUrl: ""
-            // });
         } else if (this.state.isSettingMainClip) {
             const clipData = [...this.state.clipData];
             const mainClip = clipData.find(clip => clip.isMainScrollerClip);
@@ -289,12 +256,12 @@ class Clips extends Component {
 
                                                     : <div>
                                                         {
-                                                            !this.state.isSettingMainClip ? 
-                                                            <div>
-                                                                {!clip.isMainScrollerClip ? <p onClick={this.onSetIsScrollerClip.bind(this, clip)}>{clip.isScrollerClip ? "Remove from scroller" : "Add to scroller"}</p> : null}
-                                                                <p onClick={this.onSetMainClip.bind(this, clip)}>{clip.isMainScrollerClip ? "Unmark as main clip" : "Set as main clip in scroller"}</p>
-                                                            </div>
-                                                            : null
+                                                            !this.state.isSettingMainClip ?
+                                                                <div>
+                                                                    {!clip.isMainScrollerClip ? <p onClick={this.onSetIsScrollerClip.bind(this, clip)}>{clip.isScrollerClip ? "Remove from scroller" : "Add to scroller"}</p> : null}
+                                                                    <p onClick={this.onSetMainClip.bind(this, clip)}>{clip.isMainScrollerClip ? "Unmark as main clip" : "Set as main clip in scroller"}</p>
+                                                                </div>
+                                                                : null
                                                         }
                                                     </div>
                                             }
