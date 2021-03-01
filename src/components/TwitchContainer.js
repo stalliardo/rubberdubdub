@@ -31,7 +31,7 @@ class TwitchContainer extends Component {
                         <img src="https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/6b7e0ce597266c0f0744_danrob911_40531102477_1612985446//thumb/thumb0-240x135.jpg" />
                     </div>
                     <div className="twitch-video playing">
-                        <ReactPlayer
+                        {/* <ReactPlayer
                             url={`https://www.twitch.tv/videos/${videoUrl}`}
                             onPlay={this.videoStarted}
                             width="480px"
@@ -49,7 +49,14 @@ class TwitchContainer extends Component {
                                     }
                                 }
                             }}
-                        />
+                        /> */}
+                        <iframe
+                            src="https://clips.twitch.tv/embed?clip=ComfortableOddChipmunkBatChest&parent=localhost"
+                            height="360"
+                            width="640"
+                            allowFullScreen={true}>
+                        </iframe>
+
                     </div>
                     <div className="twitch-video queued medium">
                         <img src="https://static-cdn.jtvnw.net/cf_vods/d3c27h4odz752x/90c4ebf45046a4d16c4a_danrob911_41043544780_1612817006//thumb/thumb0-240x135.jpg" />
@@ -63,6 +70,8 @@ class TwitchContainer extends Component {
                         {/* <img src="https://static-cdn.jtvnw.net/cf_vods/d3c27h4odz752x/e2b4c0f60e7cc27046d1_danrob911_41124685996_1613477032//thumb/thumb0-200x200.jpg" /> */}
                     </div>
                 </div>
+
+                {/* <img src="https://clips-media-assets2.twitch.tv/vod-890264918-offset-18-preview-480x272.jpg"/> */}
             </div>
         )
     }

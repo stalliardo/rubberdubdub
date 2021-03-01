@@ -1,18 +1,28 @@
-h2.title {
-    color: #BA01FF;
-    font-family: Vampiro One;
-    font-size: 5rem;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    transition: all 0.5s;
-  }
-  
-  h2.title:hover {
+.neon-text {
+  color: #BA01FF;
+  // width: fit-content;
+  font-family: Vampiro One;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+
+  &:hover {
     -webkit-animation: neon6 1.5s ease-in-out infinite alternate;
     -moz-animation: neon6 1.5s ease-in-out infinite alternate;
     animation: neon6 1.5s ease-in-out infinite alternate;
-    color: white;
+    color: white!important;
   }
+}
+
+h2.neon-text {
+    font-size: 5rem;
+}
+
+li.neon-text {
+  font-size: 1rem;
+}
+  
+  
 
   @-webkit-keyframes neon6 {
     from {
