@@ -24,7 +24,9 @@ class Button extends Component {
             )
         } else {
             return (
-                <button className="e-button" type="button" disabled={this.props.disabled} onClick={this.props.clickHandler}>{this.props.text}</button>
+                <button className="e-button" type="button" disabled={this.props.disabled} onClick={this.props.clickHandler}>
+                    {this.props.isLoading ? <Spinner height="20px" width="20px"/> : this.props.text}
+                </button>
             )
         }
     }

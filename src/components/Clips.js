@@ -23,6 +23,7 @@ class Clips extends Component {
             isAddingClip: false,
             isRemovingClip: false,
             editingClipUrl: "",
+            isSaving: false
         }
     }
 
@@ -52,6 +53,9 @@ class Clips extends Component {
     }
 
     onSaveClicked = () => {
+        this.setState({
+            isSaving: true
+        });
         const clipData = [...this.state.clipData];
         const mainclipUrl = clipData.find(clip => clip.isMainScrollerClip).clipUrl;
         const scrollerUrls = clipData.filter(clip => clip.isScrollerClip).map((i) => {
@@ -67,7 +71,11 @@ class Clips extends Component {
             console.log("respnise from sending the clip onject to the backend = ", response);
         }).catch((error) => {
             console.log("error from setting scroller clips = ", error);
-        });
+        }).finally(() => {
+            this.setState({
+                isSaving: false
+            })
+        })
     }
 
     onSetIsScrollerClip = (clip) => {
@@ -233,7 +241,7 @@ class Clips extends Component {
                             {this.state.prompt}
                         </p>
                         <div className="clip-buttons">
-                            <Button text="Save Changes" disabled={this.state.saveButtonDisabled} clickHandler={this.onSaveClicked} />
+                            <Button text="Save Changes" disabled={this.state.saveButtonDisabled} clickHandler={this.onSaveClicked} isLoading={this.state.isSaving}/>
                             {this.state.isSettingScrollerClips || this.state.isSettingMainClip ? <Button text="Cancel" clickHandler={this.onCancelSettingScrollerClips} /> : null}
                         </div>
                     </div>
