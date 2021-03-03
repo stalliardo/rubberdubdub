@@ -3,6 +3,7 @@ import '../styles/components/twitch-container.scss';
 import Spinner from './Spinner';
 import ReactPlayer from "react-player"
 import axios from 'axios';
+import Button from './Button';
 
 
 class TwitchContainer extends Component {
@@ -10,34 +11,47 @@ class TwitchContainer extends Component {
         super(props);
 
         this.state = {
-            clipsLoading: false,
-            scrollerClips: {}
+            clipsLoading: true,
+            scrollerClips: {},
+            // main: {},
+            clips: []
         }
     }
 
-    componentDidMount() {
-        // var video = document.querySelector('video');
-        // console.log("video = ", video);
+    shuffleClips = () => {
+        setInterval(() => {
+            const clips = [...this.state.clips];
+            const last = clips.pop()
+            clips.unshift(last);
+            this.setState({
+                clips
+            })
+        }, 30000);
+    }
 
-        // Get the clips from the backend set isLoading
+    componentDidMount = () => {
         this.setState({
             clipsLoading: true
         });
 
         axios.get('/clips').then((response) => {
             let scrollerClips = {};
-            
+
             const clips = response.data.filter(clip => clip.isScrollerClip);
             const mainScrollerClip = response.data.find(clip => clip.isMainScrollerClip);
 
             scrollerClips.main = mainScrollerClip;
+
+            clips.splice(2, 0, mainScrollerClip);
+
             scrollerClips.clips = clips;
+
             this.setState({
-                scrollerClips
+                scrollerClips,
+                clips
             });
 
-
-            console.log("scrollerClips = ", this.state.scrollerClips);
+            this.shuffleClips()
         }).catch((error) => {
             console.log("error getting sdcroller clips = ", error);
             // TODO -> If error getting clips set is loading to false and display something else in the container
@@ -48,12 +62,11 @@ class TwitchContainer extends Component {
         })
     }
 
+    // videoStarted = () => {
+    //     console.log("Video started called");
+    // }
 
-    videoStarted = () => {
-        console.log("Video started called");
-    }
-
-    render() {
+    render = () => {
         const videoUrl = 916261897; // TODO -> This will need to be set when the user clicks on one of the thunbnails or set by default
         if (this.state.clipsLoading) {
             return (
@@ -64,15 +77,14 @@ class TwitchContainer extends Component {
                 </div>
             )
         } else {
-            console.log("else called");
             return (
                 <div className="twitch-container">
                     <div className="twitch-scroller">
                         <div className="twitch-video queued small">
-                            <img src="https://clips-media-assets2.twitch.tv/40495122012-offset-1742-preview-480x272.jpg" height="135" width="240"/>
+                            <img src={`${this.state.clips[0].thumbnailUrl}`} height="90" width="160" />
                         </div>
                         <div className="twitch-video queued medium">
-                            <img src="https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/6b7e0ce597266c0f0744_danrob911_40531102477_1612985446//thumb/thumb0-240x135.jpg" />
+                            <img src={`${this.state.clips[1].thumbnailUrl}`} height="135" width="240" />
                         </div>
                         <div className="twitch-video playing">
                             {/* <ReactPlayer
@@ -94,9 +106,8 @@ class TwitchContainer extends Component {
                                     }
                                 }}
                             /> */}
-                            {console.log("main = ", this.state.scrollerClips.main)}
                             <iframe
-                                src={`https://clips.twitch.tv/embed?clip=${this.state.scrollerClips.main ? this.state.scrollerClips.main.clipUrl.split('/')[3] : null}&parent=localhost`}
+                                src={`https://clips.twitch.tv/embed?clip=${this.state.clips[2].clipUrl.split('/')[3]}&parent=localhost`}
                                 height="360"
                                 width="640"
                                 allowFullScreen={true}>
@@ -104,11 +115,13 @@ class TwitchContainer extends Component {
 
                         </div>
                         <div className="twitch-video queued medium">
-                            <img src="https://static-cdn.jtvnw.net/cf_vods/d3c27h4odz752x/90c4ebf45046a4d16c4a_danrob911_41043544780_1612817006//thumb/thumb0-240x135.jpg" />
+                            <img src={`${this.state.clips[3].thumbnailUrl}`} height="135" width="240" />
                         </div>
                         <div className="twitch-video queued small">
-                            <img src="https://static-cdn.jtvnw.net/cf_vods/d3c27h4odz752x/88a70d5529780a0c17ae_danrob911_40989853612_1612467080//thumb/thumb0-160x90.jpg" />
+                            <img src={`${this.state.clips[4].thumbnailUrl}`} height="90" width="160" />
                         </div>
+                        {/* <Button text="Shuffle" clickHandler={this.shuffleClips}/> */}
+
                     </div>
                     <div className="twitch-thumbnail-container">
                         <div className="twitch-thumbnail">
@@ -117,6 +130,7 @@ class TwitchContainer extends Component {
                     </div>
 
                     {/* <img src="https://clips-media-assets2.twitch.tv/vod-890264918-offset-18-preview-480x272.jpg"/> */}
+
                 </div>
             )
         }
