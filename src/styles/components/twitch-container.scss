@@ -1,7 +1,7 @@
 // TODO
 .twitch-container {
 	// border: 1px solid rgb(102, 29, 29);
-	
+	margin-top: 20px;
 
 }
 
@@ -10,9 +10,10 @@
 	// border: 1px solid rgb(80, 25, 25);
 	height: 350px;
 	display: flex;
-	background-color: rgba(32, 32, 32, 0.822);
+	// background-color: rgba(32, 32, 32, 0.822);
+	// background-color:black;
 	border-radius: 4px;
-
+	padding: 20px;
 
 	.twitch-video {
 		width: fit-content;
@@ -24,9 +25,12 @@
 
 		&.queued {
 			img {
-				opacity: 0.3;
-
+				opacity: 0.5;
 			}
+		}
+
+		&.playing {
+			margin-top: -5px;
 		}
 	}
 }

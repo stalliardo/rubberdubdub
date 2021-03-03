@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/components/twitch-container.scss';
 import Spinner from './Spinner';
-import ReactPlayer from "react-player"
 import axios from 'axios';
-import Button from './Button';
-
+// import Button from './Button';
 
 class TwitchContainer extends Component {
     constructor(props) {
@@ -13,7 +11,6 @@ class TwitchContainer extends Component {
         this.state = {
             clipsLoading: true,
             scrollerClips: {},
-            // main: {},
             clips: []
         }
     }
@@ -35,19 +32,12 @@ class TwitchContainer extends Component {
         });
 
         axios.get('/clips').then((response) => {
-            let scrollerClips = {};
-
             const clips = response.data.filter(clip => clip.isScrollerClip);
             const mainScrollerClip = response.data.find(clip => clip.isMainScrollerClip);
 
-            scrollerClips.main = mainScrollerClip;
-
             clips.splice(2, 0, mainScrollerClip);
 
-            scrollerClips.clips = clips;
-
             this.setState({
-                scrollerClips,
                 clips
             });
 
@@ -61,10 +51,6 @@ class TwitchContainer extends Component {
             })
         })
     }
-
-    // videoStarted = () => {
-    //     console.log("Video started called");
-    // }
 
     render = () => {
         const videoUrl = 916261897; // TODO -> This will need to be set when the user clicks on one of the thunbnails or set by default
@@ -87,30 +73,13 @@ class TwitchContainer extends Component {
                             <img src={`${this.state.clips[1].thumbnailUrl}`} height="135" width="240" />
                         </div>
                         <div className="twitch-video playing">
-                            {/* <ReactPlayer
-                                url={`https://www.twitch.tv/videos/${videoUrl}`}
-                                onPlay={this.videoStarted}
-                                width="480px"
-                                height="270px"
-                                muted={false}
-                                playing={false}
-                                controls={true}
-                                style={{
-                                    // backgroundColor: "red"
-                                }}
-                                config={{
-                                    twitch: {
-                                        options: {
-                                            allowfullscreen: true
-                                        }
-                                    }
-                                }}
-                            /> */}
+                           
                             <iframe
-                                src={`https://clips.twitch.tv/embed?clip=${this.state.clips[2].clipUrl.split('/')[3]}&parent=localhost`}
+                                src={`https://clips.twitch.tv/embed?clip=${this.state.clips[2].clipUrl.split('/')[3]}&parent=localhost&autoplay=true`}
                                 height="360"
                                 width="640"
-                                allowFullScreen={true}>
+                                allowFullScreen={true}
+                                >
                             </iframe>
 
                         </div>
@@ -120,7 +89,6 @@ class TwitchContainer extends Component {
                         <div className="twitch-video queued small">
                             <img src={`${this.state.clips[4].thumbnailUrl}`} height="90" width="160" />
                         </div>
-                        {/* <Button text="Shuffle" clickHandler={this.shuffleClips}/> */}
 
                     </div>
                     <div className="twitch-thumbnail-container">
