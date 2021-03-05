@@ -1,0 +1,25 @@
+.squad-page {
+    h1 {
+        text-align: center;
+    }
+
+    .non-squad-prompt {
+        width: 50%;
+        height: 200px;
+        // background-color: red;
+        margin: 160px auto;
+
+        
+
+        .non-squad-buttons {
+            display: flex;
+            justify-content: space-around;
+            button {
+                margin-top: 20px;
+                font-size: 22px;
+                width: 40%;
+            }
+        }
+
+    }
+}
