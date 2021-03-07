@@ -3,10 +3,13 @@ import firebase from 'firebase/app';
 import "firebase/auth";
 import "../styles/views/squadpage.scss";
 import "../styles/views/fonts.scss";
+import "../styles/views/input.scss";
+
 // import "../styles/views/form.scss";
 
 import SquadContainer from '../components/squad/SquadContainer'
 import Button from '../components/Button';
+import CreateSquadForm from '../components/squad/CreateSquadForm';
 
 class SquadPage extends Component {
     constructor(props) {
@@ -14,7 +17,10 @@ class SquadPage extends Component {
 
         this.state = {
             squadMember: false,
-            isAuthenticated: false
+            isAuthenticated: false,
+            showPrompts: true,
+            showCreateSquadForm: false,
+            showJoinSquadForm: false
         }
     }
 
@@ -36,11 +42,19 @@ class SquadPage extends Component {
     }
 
     onCreateSquad = () => {
-        console.log("on create squad clicked");
+        this.setState({
+            showCreateSquadForm: true,
+            showJoinSquadForm: false,
+            showPrompts: false
+        })
     }
 
     onJoinSquad = () => {
-        console.log("on join squad clicked");
+        this.setState({
+            showCreateSquadForm: false,
+            showJoinSquadForm: true,
+            showPrompts: false
+        })
     }
 
 
@@ -54,7 +68,11 @@ class SquadPage extends Component {
                 <div className="squad-page">
 
                     {this.state.squadMember ? <SquadContainer /> :
-                        <NonSquadPrompt onCreateSquad={this.onCreateSquad} onJoinSquad={this.onJoinSquad}/>
+                        <div>
+                            {this.state.showPrompts ? <NonSquadPrompt onCreateSquad={this.onCreateSquad} onJoinSquad={this.onJoinSquad}/> : null}
+                            {this.state.showCreateSquadForm ? <CreateSquadForm /> : null}
+                            {this.state.showJoinSquadForm ? "join form" : null}
+                        </div>
                     }
 
                 </div>
@@ -70,12 +88,14 @@ export default SquadPage;
 
 function NonSquadPrompt(props) {
     return (
-        <div className="non-squad-prompt">
-            <p className="squad-prompt">You arn't currently a member of a squad! Please use one of the following options.</p>
+        <div className="neon-borders">
+            <div className="non-squad-prompt">
+            <p>You arn't currently a member of a squad! Please use one of the following options.</p>
             <div className="non-squad-buttons">
                 <Button text="Create Squad" clickHandler={props.onCreateSquad}/>
                 <Button text="Join Squad" clickHandler={props.onJoinSquad}/>
             </div>
+        </div>
         </div>
     )
 }
