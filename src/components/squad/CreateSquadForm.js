@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Button from '../Button';
 
 class CreateSquadForm extends Component {
 
@@ -18,7 +19,8 @@ class CreateSquadForm extends Component {
                 <h1>Create Squad</h1>
                 <div className="neon-borders">
                 <input className="e-input" type="text" name="teamName" placeholder="Team Name" onChange={this.handleChange}/>
-                <input className="e-input" type="text" name="email" placeholder="Search for soldiers" onChange={this.searchForMembers}/>
+                {/* <input className="e-input" type="text" name="email" placeholder="Search for soldiers" onChange={this.searchForMembers}/> */}
+                <label>Add Members</label>
                 </div>
             </div>
         )
