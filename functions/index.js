@@ -11,9 +11,10 @@ app.get('/clips', getClips);
 app.get('/scrollerClips', getScrollerClips);
 app.post('/scrollerClips', setScrollerClips);
 
-const { getAllSoldiers } = require("./api/squad");
+const { getAllSoldiers, searchForSoldiers } = require("./api/squad");
 
 app.get('/soldiers', getAllSoldiers);
+app.get('/searchSoldiers/:search', searchForSoldiers);
 
 
 exports.api = functions.https.onRequest(app);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Button from '../Button';
+import SelectMenu from '../SelectMenu';
 
 class CreateSquadForm extends Component {
 
@@ -18,9 +19,9 @@ class CreateSquadForm extends Component {
             <div className="create-squad-form">
                 <h1>Create Squad</h1>
                 <div className="neon-borders">
-                <input className="e-input" type="text" name="teamName" placeholder="Team Name" onChange={this.handleChange}/>
+                <input className="e-input" type="text" name="squadName" placeholder="Squad Name" onChange={this.handleChange}/>
                 {/* <input className="e-input" type="text" name="email" placeholder="Search for soldiers" onChange={this.searchForMembers}/> */}
-                <label>Add Members</label>
+                <SelectMenu title="Add Soldiers"/>
                 </div>
             </div>
         )

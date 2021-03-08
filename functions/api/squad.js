@@ -11,3 +11,17 @@ exports.getAllSoldiers = (request, response) => {
         return response.status(500).json({error})
     })
 }
+
+exports.searchForSoldiers = (request, response) => {
+    const searchParam = request.params.search;
+    db.collection("users").orderBy("activisonAccount").startAt(searchParam).endAt(searchParam + "\uf8ff")
+    .get().then((querySnapshot) => {
+        const soldiers = [];
+        querySnapshot.forEach((doc) => {
+            soldiers.push(doc.data())
+        });
+        return response.status(200).json({data: soldiers})
+    }).catch((error) => {
+        return response.status(500).json({error})
+    })
+}
