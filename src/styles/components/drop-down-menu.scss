@@ -1,0 +1,12 @@
+.drop-down-menu-container {
+	width: 100%;
+	height: fit-content;
+	background-color: rgb(44, 44, 44);
+	border-radius: 3px;
+	box-sizing: border-box;
+	
+	&.open {
+		padding: 20px;
+		margin-top: 20px;
+	}
+}

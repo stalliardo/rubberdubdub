@@ -1,7 +1,7 @@
 const { admin, db } = require("../util/admin");
 
 exports.getAllSoldiers = (request, response) => {
-    db.collection("users").where("activisonAccount", "!=", null).get().then((querySnapshot) => {
+    db.collection("users").where("activisionAccount", "!=", null).get().then((querySnapshot) => {
         const soldiers = [];
         querySnapshot.forEach((doc) => {
             soldiers.push(doc.data())
@@ -14,7 +14,7 @@ exports.getAllSoldiers = (request, response) => {
 
 exports.searchForSoldiers = (request, response) => {
     const searchParam = request.params.search;
-    db.collection("users").orderBy("activisonAccount").startAt(searchParam).endAt(searchParam + "\uf8ff")
+    db.collection("users").orderBy("activisionAccount").startAt(searchParam).endAt(searchParam + "\uf8ff")
     .get().then((querySnapshot) => {
         const soldiers = [];
         querySnapshot.forEach((doc) => {
