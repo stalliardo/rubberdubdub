@@ -13,6 +13,7 @@ class CreateSquadForm extends Component {
 
         this.state = {
             soldierData: [],
+            squadName: "",
             isSearching: false,
             saveButtonDisabled: true,
             selectedSoldiers: []
@@ -51,38 +52,60 @@ class CreateSquadForm extends Component {
         }
     }
 
-    handleChange = (e) => {
-        console.log("change called + e = ", e.target.value);
+    setSaveButtonDisabled = (squadName) => {
+        this.setState({
+            saveButtonDisabled: squadName.length < 4
+        });
+    }
+
+    onSquadNameChanged = (e) => {
+        this.setState({
+            squadName: e.target.value
+        }, () => {
+            this.setSaveButtonDisabled(e.target.value);
+        })
     }
 
     onSearchForSoldiers = (e) => {
         this.startSearch(e);
     }
 
-    soliderSelected = (solider) => {
-        console.log("soldier passed to the createSquadForm = ", solider);
-
-        // Will this require shallow copying bullshit?????
+    soliderSelected = (soldier) => {
         const selectedSoldiers = [...this.state.selectedSoldiers];
-        selectedSoldiers.push(solider);
+        const soliderAlreadySelected = selectedSoldiers.find((i) => i.activisionAccount === soldier.activisionAccount);
 
-
-        this.setState({
-            soldierData: [],
-            selectedSoldiers
-        })
+        if (!soliderAlreadySelected) {
+            selectedSoldiers.push(soldier);
+            this.setState({
+                soldierData: [],
+                selectedSoldiers
+            })
+        } else {
+            this.setState({
+                soldierData: [],
+            })
+        }
 
         const searchBox = document.getElementById("soldierSearchBox");
         searchBox.value = "";
     }
 
-
     onCancelClicked = () => {
-        this.props.onCancel()
+        this.props.onCancel();
     }
 
     onSaveClicked = () => {
-        console.log("save clicked");
+        const objectToPost = {
+            squadName: this.state.squadName,
+            soldiers: this.state.selectedSoldiers
+        };
+
+        // TODO -> DOING..........
+        axios.post("/squad", objectToPost).then((response) => {
+            console.log("response from post /squad = ", response);
+        }).catch((error) => {
+            console.log("error from POST /squad = ", error);
+        })
     }
 
     onDeselectSoldier = (soldier) => {
@@ -98,8 +121,8 @@ class CreateSquadForm extends Component {
             <div className="create-squad-form">
                 <h1>Create Squad</h1>
                 <div className="neon-borders">
-                    <input className="e-input" type="text" name="squadName" placeholder="Squad Name" onChange={this.handleChange} />
-                    <input className="e-input with-spinner" id="soldierSearchBox" type="text" name="soldierSearch" placeholder="Search for soldiers (case sensitive)" onChange={this.onSearchForSoldiers} />
+                    <input className="e-input" type="text" name="squadName" placeholder="Squad Name" onChange={this.onSquadNameChanged} />
+                    <input className="e-input with-spinner" id="soldierSearchBox" type="text" name="soldierSearch" placeholder="Optional - Search for soldiers (case sensitive)" onChange={this.onSearchForSoldiers} />
                     <DropDownMenu
                         data={this.state.soldierData}
                         textKey="activisionAccount"

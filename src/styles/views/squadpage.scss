@@ -68,11 +68,14 @@
         ul {
             padding: 0;
             margin: 20px 0 0;
+            max-height: 300px;
+            overflow-y: auto;
             li {
                 list-style-type: none;
                 color: rgb(0, 140, 255);
                 display: flex;
                 justify-content: space-between;
+                margin-left: 4px;
 
                 span {
                     z-index: 2;
@@ -85,7 +88,7 @@
             li:not(:first-of-type) {
                 margin-top: 10px;
             }
-            
+
             li:hover {
                 cursor: pointer;
                 color: rgb(0, 195, 255);
