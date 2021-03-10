@@ -5,7 +5,7 @@
 	border-radius: 3px;
 	box-sizing: border-box;
 	
-	&.open {
+	&.open,&.is-loading {
 		padding: 20px;
 		margin-top: 20px;
 	}
