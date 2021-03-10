@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { Component, useCallback } from 'react';
 import Button from '../Button';
 import DropDownMenu from '../DropDownMenu';
 import SelectMenu from '../SelectMenu';
+import _ from 'lodash';
 
 class CreateSquadForm extends Component {
 
@@ -12,16 +13,11 @@ class CreateSquadForm extends Component {
         this.state = {
             soldierData: []
         }
+
+        this.startSearch = _.debounce(this.startSearch, 2000);
     }
 
-    handleChange = (e) => {
-        console.log("change called + e = ", e.target.value);
-    }
-
-    searchForSoldiers = (e) => {
-        // Need to only call the backend then the text is longer than 3 chars
-        // need to display the loader at the end of the input
-        // The results will then load into a container below the input?
+    startSearch(e){
         const searchTerm = e.target.value;
 
         if(searchTerm.length > 2) {
@@ -43,6 +39,14 @@ class CreateSquadForm extends Component {
             })
         }
     }
+    
+    handleChange = (e) => {
+        console.log("change called + e = ", e.target.value);
+    }
+
+    onSearchForSoldiers = (e) => {
+        this.startSearch(e)
+    }
 
     render() {
         return (
@@ -50,7 +54,7 @@ class CreateSquadForm extends Component {
                 <h1>Create Squad</h1>
                 <div className="neon-borders">
                 <input className="e-input" type="text" name="squadName" placeholder="Squad Name" onChange={this.handleChange}/>
-                <input className="e-input" type="text" name="soldierSearch" placeholder="Search for soldiers (case sensitive)" onChange={this.searchForSoldiers}/>
+                <input className="e-input" type="text" name="soldierSearch" placeholder="Search for soldiers (case sensitive)" onChange={this.onSearchForSoldiers}/>
                 <DropDownMenu data={this.state.soldierData} textKey="activisionAccount"/>
                 </div>
             </div>

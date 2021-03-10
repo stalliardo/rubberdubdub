@@ -21,3 +21,7 @@ class DropDownMenu extends Component {
     }
 }
 export default DropDownMenu;
+
+
+// TODO -> Debounce the search func
+// Extend the input by adding a spinner to it
