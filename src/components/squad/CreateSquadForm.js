@@ -14,10 +14,11 @@ class CreateSquadForm extends Component {
         this.state = {
             soldierData: [],
             isSearching: false,
-            saveButtonDisabled: true
+            saveButtonDisabled: true,
+            selectedSoldiers: []
         }
 
-        this.startSearch = _.debounce(this.startSearch, 2000);
+        this.startSearch = _.debounce(this.startSearch, 1000);
     }
 
     startSearch(e) {
@@ -60,8 +61,15 @@ class CreateSquadForm extends Component {
 
     soliderSelected = (solider) => {
         console.log("soldier passed to the createSquadForm = ", solider);
+
+        // Will this require shallow copying bullshit?????
+        const selectedSoldiers = [...this.state.selectedSoldiers];
+        selectedSoldiers.push(solider);
+
+
         this.setState({
             soldierData: [],
+            selectedSoldiers
         })
 
         const searchBox = document.getElementById("soldierSearchBox");
@@ -75,6 +83,14 @@ class CreateSquadForm extends Component {
 
     onSaveClicked = () => {
         console.log("save clicked");
+    }
+
+    onDeselectSoldier = (soldier) => {
+        const selectedSoldiers = [...this.state.selectedSoldiers];
+        const newArray = selectedSoldiers.filter((i) => i.activisionAccount !== soldier.activisionAccount);
+        this.setState({
+            selectedSoldiers: newArray
+        })
     }
 
     render() {
@@ -91,9 +107,20 @@ class CreateSquadForm extends Component {
                         itemSelected={this.soliderSelected}
                     />
 
+                    {
+                        this.state.selectedSoldiers.length ?
+                            <ul>
+                                {
+                                    this.state.selectedSoldiers.map((soldier, index) => {
+                                        return <li key={index + soldier}>{soldier.activisionAccount} <span onClick={this.onDeselectSoldier.bind(this, soldier)}>X</span></li>
+                                    })
+                                }
+                            </ul> : null
+                    }
+
                     <div className="create-squad-buttons">
-                        <Button text="Save" disabled={this.state.saveButtonDisabled} clickHandler={this.onSaveClicked}/>
-                        <Button text="cancel" clickHandler={this.onCancelClicked}/>
+                        <Button text="Save" disabled={this.state.saveButtonDisabled} clickHandler={this.onSaveClicked} />
+                        <Button text="cancel" clickHandler={this.onCancelClicked} />
                     </div>
                 </div>
             </div>

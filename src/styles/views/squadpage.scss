@@ -31,7 +31,6 @@
             }
         }
     }
-
 }
 .non-authed-prompt {
     margin-top: 100px;
@@ -46,7 +45,7 @@
             width: 100%;
             box-sizing: border-box;
         }
-        
+
         .e-input:not(:first-of-type) {
             margin-top: 30px;
         }
@@ -61,9 +60,35 @@
             display: flex;
             justify-content: space-between;
 
-            
             button {
                 width: 40%;
+            }
+        }
+
+        ul {
+            padding: 0;
+            margin: 20px 0 0;
+            li {
+                list-style-type: none;
+                color: rgb(0, 140, 255);
+                display: flex;
+                justify-content: space-between;
+
+                span {
+                    z-index: 2;
+                    padding: 2px 6px;
+                    &:hover {
+                        color: red;
+                    }
+                }
+            }
+            li:not(:first-of-type) {
+                margin-top: 10px;
+            }
+            
+            li:hover {
+                cursor: pointer;
+                color: rgb(0, 195, 255);
             }
         }
     }
