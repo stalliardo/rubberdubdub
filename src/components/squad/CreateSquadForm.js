@@ -8,21 +8,22 @@ import Spinner from '../Spinner';
 
 class CreateSquadForm extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
             soldierData: [],
             isSearching: false,
+            saveButtonDisabled: true
         }
 
         this.startSearch = _.debounce(this.startSearch, 2000);
     }
 
-    startSearch(e){
+    startSearch(e) {
         const searchTerm = e.target.value;
 
-        if(searchTerm.length > 2) {
+        if (searchTerm.length > 2) {
 
             this.setState({
                 isSearching: true
@@ -41,20 +42,39 @@ class CreateSquadForm extends Component {
                     isSearching: false
                 })
             })
-        } else if(searchTerm.length < 3) {
+        } else if (searchTerm.length < 3) {
             this.setState({
                 soldierData: [],
                 isSearching: false
             })
         }
     }
-    
+
     handleChange = (e) => {
         console.log("change called + e = ", e.target.value);
     }
 
     onSearchForSoldiers = (e) => {
-        this.startSearch(e)
+        this.startSearch(e);
+    }
+
+    soliderSelected = (solider) => {
+        console.log("soldier passed to the createSquadForm = ", solider);
+        this.setState({
+            soldierData: [],
+        })
+
+        const searchBox = document.getElementById("soldierSearchBox");
+        searchBox.value = "";
+    }
+
+
+    onCancelClicked = () => {
+        this.props.onCancel()
+    }
+
+    onSaveClicked = () => {
+        console.log("save clicked");
     }
 
     render() {
@@ -62,13 +82,19 @@ class CreateSquadForm extends Component {
             <div className="create-squad-form">
                 <h1>Create Squad</h1>
                 <div className="neon-borders">
-                <input className="e-input" type="text" name="squadName" placeholder="Squad Name" onChange={this.handleChange}/>
-                <input className="e-input with-spinner" type="text" name="soldierSearch" placeholder="Search for soldiers (case sensitive)" onChange={this.onSearchForSoldiers}/>
-                <DropDownMenu 
-                    data={this.state.soldierData} 
-                    textKey="activisionAccount"
-                    isLoading={this.state.isSearching}
-                />
+                    <input className="e-input" type="text" name="squadName" placeholder="Squad Name" onChange={this.handleChange} />
+                    <input className="e-input with-spinner" id="soldierSearchBox" type="text" name="soldierSearch" placeholder="Search for soldiers (case sensitive)" onChange={this.onSearchForSoldiers} />
+                    <DropDownMenu
+                        data={this.state.soldierData}
+                        textKey="activisionAccount"
+                        isLoading={this.state.isSearching}
+                        itemSelected={this.soliderSelected}
+                    />
+
+                    <div className="create-squad-buttons">
+                        <Button text="Save" disabled={this.state.saveButtonDisabled} clickHandler={this.onSaveClicked}/>
+                        <Button text="cancel" clickHandler={this.onCancelClicked}/>
+                    </div>
                 </div>
             </div>
         )

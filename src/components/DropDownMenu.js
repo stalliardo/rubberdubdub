@@ -8,6 +8,10 @@ class DropDownMenu extends Component {
         super(props);
     }
 
+    onItemSelected = (item) => {
+        this.props.itemSelected(item)
+    }
+
     render() {
         return (
             <div className={`drop-down-menu-container ${this.props.data.length ? "open" : "closed"} ${this.props.isLoading ? "is-loading" : null}`}>
@@ -16,9 +20,13 @@ class DropDownMenu extends Component {
                 }
 
                 {
-                    this.props.data.map((item, index) => {
-                        return <DropDownItem key={index} data={item} textKey={this.props.textKey} />
-                    })
+                    !this.props.isLoading ? <div>
+                        {
+                            this.props.data.map((item, index) => {
+                                return <DropDownItem key={index} data={item} textKey={this.props.textKey} itemSelected={this.onItemSelected}/>
+                            })
+                        }
+                    </div> : null
                 }
             </div>
         )

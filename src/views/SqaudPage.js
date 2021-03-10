@@ -57,6 +57,11 @@ class SquadPage extends Component {
         })
     }
 
+    createSquadCancelled = () => {
+        // Cound i have a inline fnction instaed of this....
+        // like onCancel = {this.state.}
+    }
+
 
 
     render() {
@@ -70,7 +75,7 @@ class SquadPage extends Component {
                     {this.state.squadMember ? <SquadContainer /> :
                         <div>
                             {this.state.showPrompts ? <NonSquadPrompt onCreateSquad={this.onCreateSquad} onJoinSquad={this.onJoinSquad}/> : null}
-                            {this.state.showCreateSquadForm ? <CreateSquadForm /> : null}
+                            {this.state.showCreateSquadForm ? <CreateSquadForm onCancel={() => this.setState({showPrompts: true, showCreateSquadForm: false})}/> : null}
                             {this.state.showJoinSquadForm ? "join form" : null}
                         </div>
                     }

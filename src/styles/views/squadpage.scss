@@ -55,5 +55,16 @@
             color: fuchsia;
             margin-top: 20px;
         }
+
+        .create-squad-buttons {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            
+            button {
+                width: 40%;
+            }
+        }
     }
 }
