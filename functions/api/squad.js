@@ -18,7 +18,9 @@ exports.searchForSoldiers = (request, response) => {
     .get().then((querySnapshot) => {
         const soldiers = [];
         querySnapshot.forEach((doc) => {
-            soldiers.push(doc.data())
+            if(!doc.data().memberOfSquad) {
+                soldiers.push(doc.data())
+            }
         });
         return response.status(200).json({data: soldiers})
     }).catch((error) => {
@@ -35,6 +37,14 @@ exports.createSquad = (request, response) => {
             return squadRef.set(request.body.members)
         }
     }).then(() => {
+
+        // Squad created...
+        // Now update the creators user profile add him to the menbers of prop
+        // Update all other members' memberOfSquad props
+        // But first check if they are in a squad or not
+
+
+
         return response.status(200).json({message: "Squad successfully created!"});
     }).catch((error) => {
         return response.status(500).json({error})

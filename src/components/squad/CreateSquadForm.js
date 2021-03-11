@@ -97,13 +97,13 @@ class CreateSquadForm extends Component {
 
     onSaveClicked = () => {
         const selectedSoldiers = [...this.state.selectedSoldiers];
-        const extractedActivisonAccountNames = selectedSoldiers.map((solider) => {
+        const members = selectedSoldiers.map((solider) => {
             return solider.activisionAccount;
         });
 
         const objectToPost = {
             squadName: this.state.squadName,
-            members: {extractedActivisonAccountNames}
+            members: {members}
         };
 
         this.setState({
@@ -135,6 +135,7 @@ class CreateSquadForm extends Component {
                 <h1>Create Squad</h1>
                 <div className="neon-borders">
                     <input className="e-input" type="text" name="squadName" placeholder="Squad Name" onChange={this.onSquadNameChanged} />
+                    <label>Only soldiers that are NOT in a squad will be found</label>
                     <input className="e-input with-spinner" id="soldierSearchBox" type="text" name="soldierSearch" placeholder="Optional - Search for soldiers (case sensitive)" onChange={this.onSearchForSoldiers} />
                     <DropDownMenu
                         data={this.state.soldierData}
