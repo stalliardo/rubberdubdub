@@ -16,7 +16,8 @@ class CreateSquadForm extends Component {
             squadName: "",
             isSearching: false,
             saveButtonDisabled: true,
-            selectedSoldiers: []
+            selectedSoldiers: [],
+            isSaving: false
         }
 
         this.startSearch = _.debounce(this.startSearch, 1000);
@@ -95,16 +96,28 @@ class CreateSquadForm extends Component {
     }
 
     onSaveClicked = () => {
+        const selectedSoldiers = [...this.state.selectedSoldiers];
+        const extractedActivisonAccountNames = selectedSoldiers.map((solider) => {
+            return solider.activisionAccount;
+        });
+
         const objectToPost = {
             squadName: this.state.squadName,
-            soldiers: this.state.selectedSoldiers
+            members: {extractedActivisonAccountNames}
         };
 
-        // TODO -> DOING..........
+        this.setState({
+            isSaving: true
+        });
+
         axios.post("/squad", objectToPost).then((response) => {
             console.log("response from post /squad = ", response);
         }).catch((error) => {
-            console.log("error from POST /squad = ", error);
+            console.log("error from POST /squad = ", error.response);
+        }).finally(() => {
+            this.setState({
+                isSaving: false
+            });
         })
     }
 
@@ -142,7 +155,7 @@ class CreateSquadForm extends Component {
                     }
 
                     <div className="create-squad-buttons">
-                        <Button text="Save" disabled={this.state.saveButtonDisabled} clickHandler={this.onSaveClicked} />
+                        <Button text="Save" isLoading={this.state.isSaving} disabled={this.state.saveButtonDisabled} clickHandler={this.onSaveClicked} />
                         <Button text="cancel" clickHandler={this.onCancelClicked} />
                     </div>
                 </div>

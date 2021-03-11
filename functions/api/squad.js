@@ -25,3 +25,20 @@ exports.searchForSoldiers = (request, response) => {
         return response.status(500).json({error})
     })
 }
+
+exports.createSquad = (request, response) => {
+    const squadRef = db.collection("squad").doc(request.body.squadName);
+    squadRef.get().then((doc) => {
+        if(doc.exists) {
+            return response.status(400).json({error: "Squad name already in use!"})
+        } else {
+            return squadRef.set(request.body.members)
+        }
+    }).then(() => {
+        return response.status(200).json({message: "Squad successfully created!"});
+    }).catch((error) => {
+        return response.status(500).json({error})
+    })
+
+
+}
