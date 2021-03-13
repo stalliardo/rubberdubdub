@@ -28,7 +28,7 @@ class SquadPage extends Component {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 // TODO ->  Need to check the users isSquadMember prop
-
+                console.log("User from squadPageb is: ", user.uid);
                 this.setState({
                     isAuthenticated: true
                 })

@@ -5,6 +5,8 @@ import DropDownMenu from '../DropDownMenu';
 import SelectMenu from '../SelectMenu';
 import _ from 'lodash';
 import Spinner from '../Spinner';
+import firebase from 'firebase/app';
+import "firebase/auth";
 
 class CreateSquadForm extends Component {
 
@@ -17,10 +19,25 @@ class CreateSquadForm extends Component {
             isSearching: false,
             saveButtonDisabled: true,
             selectedSoldiers: [],
-            isSaving: false
+            isSaving: false,
+            creatorId: null
         }
 
         this.startSearch = _.debounce(this.startSearch, 1000);
+    }
+
+    componentDidMount = () => {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                // TODO ->  Need to check the users isSquadMember prop
+                console.log("User from createSquad is: ", user.uid);
+                this.setState({
+                    creatorId: user.uid
+                })
+            } else {
+                this.props.onCancel();
+            }
+        });
     }
 
     startSearch(e) {
@@ -97,17 +114,13 @@ class CreateSquadForm extends Component {
 
     onSaveClicked = () => {
         const selectedSoldiers = [...this.state.selectedSoldiers];
-        console.log("selected Solders  = ", selectedSoldiers);
-
-        // TODO -> save the id of the user not their activisonAccount
-
         const userId = selectedSoldiers.map((solider) => {
             return solider.id;
         });
-
         const objectToPost = {
             squadName: this.state.squadName,
-            members: {userId}
+            members: userId,
+            creatorId: this.state.creatorId
         };
 
         this.setState({
@@ -116,6 +129,11 @@ class CreateSquadForm extends Component {
 
         axios.post("/squad", objectToPost).then((response) => {
             console.log("response from post /squad = ", response);
+            // this.setState({
+            //     soldierData: []
+            // })
+            // Completed successfully!
+            // TODO -> Now what??? Go to the main squad page
         }).catch((error) => {
             console.log("error from POST /squad = ", error.response);
         }).finally(() => {

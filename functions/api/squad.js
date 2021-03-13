@@ -33,6 +33,16 @@ exports.searchForSoldiers = (request, response) => {
 }
 
 exports.createSquad = (request, response) => {
+    // TODO -> Set the General property....
+
+    // Will need to pass the id of the creator along in the request
+    // Then in the batch set the isGeneral property to true
+
+    // Use the request.body.creatorId and update the users isGeneral prop
+
+
+
+
     const squadRef = db.collection("squad").doc(request.body.squadName);
     squadRef.get().then((doc) => {
         if (doc.exists) {
