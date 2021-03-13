@@ -97,13 +97,17 @@ class CreateSquadForm extends Component {
 
     onSaveClicked = () => {
         const selectedSoldiers = [...this.state.selectedSoldiers];
-        const members = selectedSoldiers.map((solider) => {
-            return solider.activisionAccount;
+        console.log("selected Solders  = ", selectedSoldiers);
+
+        // TODO -> save the id of the user not their activisonAccount
+
+        const userId = selectedSoldiers.map((solider) => {
+            return solider.id;
         });
 
         const objectToPost = {
             squadName: this.state.squadName,
-            members: {members}
+            members: {userId}
         };
 
         this.setState({
