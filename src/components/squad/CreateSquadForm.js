@@ -29,7 +29,6 @@ class CreateSquadForm extends Component {
     componentDidMount = () => {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                // TODO ->  Need to check the users isSquadMember prop
                 console.log("User from createSquad is: ", user.uid);
                 this.setState({
                     creatorId: user.uid

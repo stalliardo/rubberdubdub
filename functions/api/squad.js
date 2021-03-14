@@ -33,17 +33,7 @@ exports.searchForSoldiers = (request, response) => {
 }
 
 exports.createSquad = (request, response) => {
-    // TODO -> Set the General property....
-
-    // Will need to pass the id of the creator along in the request
-    // Then in the batch set the isGeneral property to true
-
-    // Use the request.body.creatorId and update the users isGeneral prop
-
-
-
-
-    const squadRef = db.collection("squad").doc(request.body.squadName);
+const squadRef = db.collection("squad").doc(request.body.squadName);
     squadRef.get().then((doc) => {
         if (doc.exists) {
             return response.status(400).json({ error: "Squad name already in use!" })
@@ -56,6 +46,7 @@ exports.createSquad = (request, response) => {
         request.body.members.forEach((member) => {            
             batch.update(db.collection("users").doc(member), { memberOfSquad: request.body.squadName });
         });
+        batch.update(db.collection("users").doc(request.body.creatorId), {isGeneral: true, memberOfSquad: request.body.squadName});
         return batch.commit();
 
     }).then(() => {
