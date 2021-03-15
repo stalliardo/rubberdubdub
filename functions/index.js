@@ -2,7 +2,8 @@ const functions = require("firebase-functions");
 const app = require("express")();
 const auth = require('./util/auth');
 
-const { signUpUser } = require("./api/user");
+const { signUpUser, getUser } = require("./api/user");
+app.get("/user/:uid", getUser)
 app.post('/signup', auth, signUpUser);
 
 const { getClips, getScrollerClips, setScrollerClips } = require("./api/twitch");

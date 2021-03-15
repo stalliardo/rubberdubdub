@@ -10,25 +10,44 @@ import "../styles/views/input.scss";
 import SquadContainer from '../components/squad/SquadContainer'
 import Button from '../components/Button';
 import CreateSquadForm from '../components/squad/CreateSquadForm';
+import Spinner from '../components/Spinner';
+import axios from 'axios';
 
 class SquadPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            squadMember: false,
             isAuthenticated: false,
+            isLoading: true,
             showPrompts: true,
             showCreateSquadForm: false,
-            showJoinSquadForm: false
+            showJoinSquadForm: false,
+            userData: {}
         }
     }
 
     componentDidMount = () => {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                // TODO ->  Need to check the users isSquadMember prop
-                console.log("User from squadPageb is: ", user.uid);
+                // TODO ->  Need to check the users memberOfSquad prop and the isGeneral prop
+                console.log("User from squadPage is: ", user.uid);
+
+                // Get the user doc...
+                axios.get(`user/${user.uid}`).then((userDoc) => {
+                    console.log("userDoc from get /user = ", userDoc);
+                    this.setState({
+                        isGeneral: userDoc.data.isGeneral,
+                        userData: userDoc.data
+                    })
+                }).catch((error) => {
+                    console.log("Error Getting user in squad page + error = ", error.response);
+                }).finally(() => {
+                    this.setState({
+                        isLoading: false
+                    })
+                })
+
                 this.setState({
                     isAuthenticated: true
                 })
@@ -66,22 +85,26 @@ class SquadPage extends Component {
 
     render() {
 
-        if (!this.state.isAuthenticated) {
-            return <NonAuthedPrompt />
+        if(this.state.isLoading) {
+            return <Spinner height="100px" width="100px" marginTop="130px" />
         } else {
-            return (
-                <div className="squad-page">
-
-                    {this.state.squadMember ? <SquadContainer /> :
-                        <div>
-                            {this.state.showPrompts ? <NonSquadPrompt onCreateSquad={this.onCreateSquad} onJoinSquad={this.onJoinSquad}/> : null}
-                            {this.state.showCreateSquadForm ? <CreateSquadForm onCancel={() => this.setState({showPrompts: true, showCreateSquadForm: false})}/> : null}
-                            {this.state.showJoinSquadForm ? "join form" : null}
-                        </div>
-                    }
-
-                </div>
-            )
+            if (!this.state.isAuthenticated) {
+                return <NonAuthedPrompt />
+            } else {
+                return (
+                    <div className="squad-page">
+    
+                        {this.state.userData.memberOfSquad ? <SquadContainer userData={this.state.userData}/> :
+                            <div>
+                                {this.state.showPrompts ? <NonSquadPrompt onCreateSquad={this.onCreateSquad} onJoinSquad={this.onJoinSquad}/> : null}
+                                {this.state.showCreateSquadForm ? <CreateSquadForm onCancel={() => this.setState({showPrompts: true, showCreateSquadForm: false})}/> : null}
+                                {this.state.showJoinSquadForm ? "join form" : null}
+                            </div>
+                        }
+    
+                    </div>
+                )
+            }
         }
 
 

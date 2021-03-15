@@ -23,3 +23,15 @@ exports.signUpUser = (request, response) => {
         return response.status(500).json({ error: "Unable to add user to database! Error = ", error })
     });
 }
+
+exports.getUser = (request, response) => {
+    db.doc(`/users/${request.params.uid}`).get().then((doc) => {
+        if (doc.exists) {
+            return response.status(200).json(doc.data());
+        } else {
+            return response.status(400).json({error: "User data not found!"})
+        }
+    }).catch((error) => {
+        return response.status(500).json({ error: "An error occured while getting the user's data. Error: " + error })
+    });
+}
