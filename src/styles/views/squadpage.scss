@@ -103,24 +103,38 @@
     width: 100%;
     height: fit-content;
     margin-top: 20px;
+
+    .neon-text.squad-name {
+        text-align: left;
+    }
+
+    .members-and-teams {
+        display: flex;
+
+        .squad-members,.squad-teams {
+            width: 50%;
+            height: 500px;
+        }
+    }
 }
 
 .squad-details {
-    background-color: red;
+    border: 1px solid red;
+    height: 100px;
 }
 
 .squad-members {
-    background-color: rgb(197, 27, 27);
+    border: 1px solid green;
 }
 
 .squad-tournament-info {
-    background-color: rgb(146, 37, 37);
+    border: 1px solid blue;
 }
 
 .squad-teams {
-    background-color: rgb(255, 123, 0);
+    border: 1px solid yellow;
 }
 
 .squad-leader-board {
-    background-color: rgb(255, 166, 0);
+    border: 1px solid pink;
 }

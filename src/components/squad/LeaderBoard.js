@@ -5,7 +5,7 @@ class LeaderBoard extends Component {
     render(){
         return (
             <div className="squad-leader-board">
-                <h1 className="neon-text">LeaderBoard</h1>
+                <h1 className="neon-text small">LeaderBoard</h1>
             </div>
         )
     }    

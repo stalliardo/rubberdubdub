@@ -10,11 +10,13 @@ class SquadContainer extends Component {
     render() {
         return (
             <div className="squad-page-members-area neon-borders">
-                <h1 className="neon-text">{this.props.userData.memberOfSquad}</h1>
+                <h1 className="neon-text squad-name">{this.props.userData.memberOfSquad}</h1>
                 <SquadDetails />
-                <SquadMembers />
+                <div className="members-and-teams">
+                    <SquadMembers />
+                    <SquadTeams />
+                </div>
                 <TournamentInformation />
-                <SquadTeams />
                 <LeaderBoard />
             </div>
         )
