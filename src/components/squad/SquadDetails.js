@@ -6,6 +6,7 @@ class SquadDetails extends Component {
         return (
             <div className="squad-details">
                 <h1 className="neon-text small">SquadDetails</h1>
+                {/* <h1>General is {this.props.userData.}</h1> */}
             </div>
         )
     }    

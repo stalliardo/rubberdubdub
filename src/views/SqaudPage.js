@@ -97,7 +97,7 @@ class SquadPage extends Component {
                         {this.state.userData.memberOfSquad ? <SquadContainer userData={this.state.userData}/> :
                             <div>
                                 {this.state.showPrompts ? <NonSquadPrompt onCreateSquad={this.onCreateSquad} onJoinSquad={this.onJoinSquad}/> : null}
-                                {this.state.showCreateSquadForm ? <CreateSquadForm onCancel={() => this.setState({showPrompts: true, showCreateSquadForm: false})}/> : null}
+                                {this.state.showCreateSquadForm ? <CreateSquadForm onCancel={() => this.setState({showPrompts: true, showCreateSquadForm: false})} userData={this.state.userData}/> : null}
                                 {this.state.showJoinSquadForm ? "join form" : null}
                             </div>
                         }

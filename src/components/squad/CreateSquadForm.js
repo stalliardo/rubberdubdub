@@ -119,7 +119,8 @@ class CreateSquadForm extends Component {
         const objectToPost = {
             squadName: this.state.squadName,
             members: userId,
-            creatorId: this.state.creatorId
+            creatorId: this.state.creatorId,
+            generalsName: this.props.userData.activisionAccount
         };
 
         this.setState({
@@ -128,10 +129,7 @@ class CreateSquadForm extends Component {
 
         axios.post("/squad", objectToPost).then((response) => {
             console.log("response from post /squad = ", response);
-            // this.setState({
-            //     soldierData: []
-            // })
-            // Completed successfully!
+            
             // TODO -> Now what??? Go to the main squad page
         }).catch((error) => {
             console.log("error from POST /squad = ", error.response);

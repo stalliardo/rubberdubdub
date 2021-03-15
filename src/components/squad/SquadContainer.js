@@ -7,11 +7,22 @@ import SquadTeams from './SquadTeams';
 import TournamentInformation from './TournamentInfomation';
 
 class SquadContainer extends Component {
+    constructor(props){
+        super(props);
+
+        
+    }
+
+    componentDidMount(){
+        // TODO -> 
+        // Call the get /squad api
+    }
+
     render() {
         return (
             <div className="squad-page-members-area neon-borders">
                 <h1 className="neon-text squad-name">{this.props.userData.memberOfSquad}</h1>
-                <SquadDetails />
+                <SquadDetails userData={this.props.userData}/>
                 <div className="members-and-teams">
                     <SquadMembers />
                     <SquadTeams />

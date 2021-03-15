@@ -39,7 +39,7 @@ const squadRef = db.collection("squad").doc(request.body.squadName);
             return response.status(400).json({ error: "Squad name already in use!" })
         } else {
             const members = request.body.members;
-            return squadRef.set({members});
+            return squadRef.set({members, general: request.body.generalsName});
         }
     }).then(() => {
         const batch = db.batch();
@@ -52,6 +52,16 @@ const squadRef = db.collection("squad").doc(request.body.squadName);
     }).then(() => {
         return response.status(200).json({ message: "Squad successfully created!" });
     }).catch((error) => {
+        return response.status(500).json({ error })
+    })
+}
+
+exports.getSquad = (request, response) => {
+    db.collection("squad").doc(request.params.squadName).get().then((doc) => {
+        console.log("doc.data = ", doc.exists);
+        return response.status(200).json(doc.data());
+    }).catch((error) => {
+        console.log("error getting the squad");
         return response.status(500).json({ error })
     })
 }
