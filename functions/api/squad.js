@@ -58,10 +58,12 @@ const squadRef = db.collection("squad").doc(request.body.squadName);
 
 exports.getSquad = (request, response) => {
     db.collection("squad").doc(request.params.squadName).get().then((doc) => {
-        console.log("doc.data = ", doc.exists);
-        return response.status(200).json(doc.data());
+        if(doc.exists) {
+            return response.status(200).json(doc.data());
+        } else {
+            return response.status(400).json({message: "Squad not found"});
+        }
     }).catch((error) => {
-        console.log("error getting the squad");
         return response.status(500).json({ error })
     })
 }

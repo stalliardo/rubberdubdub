@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import SquadPage from '../../views/SqaudPage';
 
 class SquadDetails extends Component {
+
+    componentDidMount(){
+    }
+
     render(){
         return (
             <div className="squad-details">
-                <h1 className="neon-text small">SquadDetails</h1>
-                {/* <h1>General is {this.props.userData.}</h1> */}
+                <h1 className="neon-text small">Squad Details</h1>
+                <p>Squad General: {this.props.squadData.general}</p>
+                <p>Squad members: {this.props.squadData.members.length}</p>
             </div>
         )
     }    
