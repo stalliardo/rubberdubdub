@@ -136,6 +136,28 @@
 
 .squad-members {
     border: 1px solid green;
+    
+    #squadMembers {
+        border-collapse: collapse;
+        width: 90%;
+        margin: auto;
+    }
+    #squadMembers td, #squadMembers thead {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      
+      #squadMembers tr:nth-child(even){background-color: #5a2222;}
+      
+      #squadMembers tr:hover {background-color: #ddd;}
+      
+      #squadMembers thead {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+      }
 }
 
 .squad-tournament-info {

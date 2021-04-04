@@ -13,10 +13,9 @@ class SquadContainer extends Component {
         super(props);
 
         this.state = {
-            isInitializing: true
-        }
-
-        
+            isInitializing: true,
+            squadData: {}
+        }        
     }
 
     componentDidMount(){ 
