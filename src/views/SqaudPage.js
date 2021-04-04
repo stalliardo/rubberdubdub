@@ -5,8 +5,6 @@ import "../styles/views/squadpage.scss";
 import "../styles/views/fonts.scss";
 import "../styles/views/input.scss";
 
-// import "../styles/views/form.scss";
-
 import SquadContainer from '../components/squad/SquadContainer'
 import Button from '../components/Button';
 import CreateSquadForm from '../components/squad/CreateSquadForm';
@@ -31,11 +29,10 @@ class SquadPage extends Component {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 // TODO ->  Need to check the users memberOfSquad prop and the isGeneral prop
-                console.log("User from squadPage is: ", user.uid);
+                // console.log("User from squadPage is: ", user.uid);
 
                 // Get the user doc...
                 axios.get(`user/${user.uid}`).then((userDoc) => {
-                    console.log("userDoc from get /user = ", userDoc);
                     this.setState({
                         isGeneral: userDoc.data.isGeneral,
                         userData: userDoc.data
@@ -85,7 +82,7 @@ class SquadPage extends Component {
 
     render() {
 
-        if(this.state.isLoading) {
+        if (this.state.isLoading) {
             return <Spinner height="100px" width="100px" marginTop="130px" />
         } else {
             if (!this.state.isAuthenticated) {
@@ -93,22 +90,19 @@ class SquadPage extends Component {
             } else {
                 return (
                     <div className="squad-page">
-    
-                        {this.state.userData.memberOfSquad ? <SquadContainer userData={this.state.userData}/> :
+
+                        {this.state.userData.memberOfSquad ? <SquadContainer userData={this.state.userData} /> :
                             <div>
-                                {this.state.showPrompts ? <NonSquadPrompt onCreateSquad={this.onCreateSquad} onJoinSquad={this.onJoinSquad}/> : null}
-                                {this.state.showCreateSquadForm ? <CreateSquadForm onCancel={() => this.setState({showPrompts: true, showCreateSquadForm: false})} userData={this.state.userData}/> : null}
+                                {this.state.showPrompts ? <NonSquadPrompt onCreateSquad={this.onCreateSquad} onJoinSquad={this.onJoinSquad} /> : null}
+                                {this.state.showCreateSquadForm ? <CreateSquadForm onCancel={() => this.setState({ showPrompts: true, showCreateSquadForm: false })} userData={this.state.userData} /> : null}
                                 {this.state.showJoinSquadForm ? "join form" : null}
                             </div>
                         }
-    
+
                     </div>
                 )
             }
         }
-
-
-
     }
 }
 
@@ -118,12 +112,12 @@ function NonSquadPrompt(props) {
     return (
         <div className="neon-borders">
             <div className="non-squad-prompt">
-            <p>You arn't currently a member of a squad! Please use one of the following options.</p>
-            <div className="non-squad-buttons">
-                <Button text="Create Squad" clickHandler={props.onCreateSquad}/>
-                <Button text="Join Squad" clickHandler={props.onJoinSquad}/>
+                <p>You arn't currently a member of a squad! Please use one of the following options.</p>
+                <div className="non-squad-buttons">
+                    <Button text="Create Squad" clickHandler={props.onCreateSquad} />
+                    <Button text="Join Squad" clickHandler={props.onJoinSquad} />
+                </div>
             </div>
-        </div>
         </div>
     )
 }

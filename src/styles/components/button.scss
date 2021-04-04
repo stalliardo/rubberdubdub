@@ -24,6 +24,11 @@ $blue: rgb(0, 140, 255);
 	cursor: not-allowed;
 }
 
+.e-button.danger {
+	border-color: red;
+	color: red;
+}
+
 .ie .e-button {
 	line-height: 40px;
 }

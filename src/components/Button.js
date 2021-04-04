@@ -13,7 +13,7 @@ class Button extends Component {
             // Return a form button
             return (
                 <button 
-                    className="e-button" 
+                    className={`e-button ${this.props.class}`} 
                     type="button" 
                     type={this.props.type} 
                     disabled={this.props.disabled}
@@ -24,7 +24,7 @@ class Button extends Component {
             )
         } else {
             return (
-                <button className="e-button" type="button" disabled={this.props.disabled} onClick={this.props.clickHandler}>
+                <button className={`e-button ${this.props.class}`} type="button" disabled={this.props.disabled} onClick={this.props.clickHandler}>
                     {this.props.isLoading ? <Spinner height="20px" width="20px"/> : this.props.text}
                 </button>
             )

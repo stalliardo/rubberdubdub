@@ -5,7 +5,7 @@ class SquadTeams extends Component {
     render(){
         return (
             <div className="squad-teams">
-                <h1 className="neon-text small">SquadTeams</h1>
+                <h1 className="neon-text small">Squad Teams</h1>
             </div>
         )
     }    

@@ -39,10 +39,9 @@ class SquadContainer extends Component {
         } else {
             return (
                 <div className="squad-page-members-area neon-borders">
-                    <h1 className="neon-text squad-name">{this.props.userData.memberOfSquad}</h1>
                     <SquadDetails userData={this.props.userData} squadData={this.state.squadData}/>
                     <div className="members-and-teams">
-                        <SquadMembers />
+                        <SquadMembers squadData={this.state.squadData}/>
                         <SquadTeams />
                     </div>
                     <TournamentInformation />
