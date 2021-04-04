@@ -14,6 +14,7 @@ import SignUp from './views/SignUp';
 import background from './assets/images/test2.jpg';
 import TestPage from './views/testpage';
 import AdminPage from './views/AdminPage';
+import SquadPage from './views/SqaudPage';
 
 firebase.initializeApp({
     apiKey: "AIzaSyA_Jb4QPVze61ExISOjqVibHKrvYhQ4Ito",
@@ -42,6 +43,7 @@ class App extends Component {
                                 <Route exact path="/signup" component={SignUp} />
                                 <Route exact path="/test" component={TestPage} />
                                 <Route exact path="/admin" component={AdminPage} />
+                                <Route exact path="/squad" component={SquadPage} />
                         </Switch>
                         </div>
                     </div>

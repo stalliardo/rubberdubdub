@@ -1,7 +1,7 @@
 .navbar {
-    height: 70px;
+    height: 80px;
     position: fixed;
-    // background-color: #20232a;
+    background-color: #20232a;
     width: 100%;
     z-index: 1;
     left: 0;
@@ -28,16 +28,18 @@
         text-decoration: none;
         color: white;
         margin-right: 20px;
+        font-family: 'Black Ops One', cursive;
     }
 
     .selected-nav {
-        color: yellowgreen;
+        color: rgb(245, 0, 224);
         // todo
     }
 
     span {
         color: white;
         margin-right: 1rem;
+        font-family: 'Black Ops One', cursive;
     }
 
     span:not(.nav-identifier) {
@@ -49,7 +51,5 @@
     span.nav-identifier {
         color: steelblue;
     }
-
-    
    }
 }

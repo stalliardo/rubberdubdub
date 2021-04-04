@@ -58,6 +58,7 @@ class NavBar extends Component {
                     {this.state.isAdmin ? <NavLink to="/admin" activeClassName="selected-nav">Admin</NavLink> : null}
                     {!this.state.isAuthenticated ? <NavLink to="/login" activeClassName="selected-nav">Log in</NavLink> : null}
                     {!this.state.isAuthenticated ? <NavLink to="/signup" activeClassName="selected-nav">Sign Up</NavLink> : null}
+                    {this.state.isAuthenticated ? <NavLink to="/squad" activeClassName="selected-nav">Squad</NavLink> : null}
                     <span onClick={this.onSignOut}>{this.state.isAuthenticated ? "Log out" : ""}</span>
 
                 </div>

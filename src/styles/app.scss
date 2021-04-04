@@ -7,8 +7,12 @@ body {
     margin: 0 !important;
     padding: 0 !important;
     // TODO 
-    overflow-y: hidden;
+    overflow-y: auto;
     background-color: black;
+}
+
+h1,h2,h3,h4,h5,p,li,a,label,span {
+    font-family: 'Black Ops One', cursive;
 }
 
 .main {

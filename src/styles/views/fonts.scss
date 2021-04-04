@@ -1,7 +1,8 @@
 .neon-text {
-  color: #BA01FF;
+  color: #ba01ff;
   // width: fit-content;
-  font-family: Vampiro One;
+  // font-family: Vampiro One;
+  font-family: 'Black Ops One', cursive;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   transition: all 0.5s;
@@ -10,43 +11,67 @@
     -webkit-animation: neon6 1.5s ease-in-out infinite alternate;
     -moz-animation: neon6 1.5s ease-in-out infinite alternate;
     animation: neon6 1.5s ease-in-out infinite alternate;
-    color: white!important;
+    color: white !important;
   }
 }
 
 h2.neon-text {
-    font-size: 5rem;
+  font-size: 5rem;
 }
 
 li.neon-text {
   font-size: 1rem;
 }
-  
-  
 
-  @-webkit-keyframes neon6 {
-    from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
-    }
-    to {
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
-    }
-  }
+.neon-text.small {
+  font-size: 22px;
+}
 
-  @-moz-keyframes neon6 {
-    from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
-    }
-    to {
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
-    }
-  }
+h1,h2,h3,h4,h5 {
+  letter-spacing: 1px;
+}
 
-  @keyframes neon6 {
-    from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
-    }
-    to {
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
-    }
+@-webkit-keyframes neon6 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de,
+      0 0 100px #ff00de, 0 0 150px #ff00de;
   }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de,
+      0 0 50px #ff00de, 0 0 75px #ff00de;
+  }
+}
+
+@-moz-keyframes neon6 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de,
+      0 0 100px #ff00de, 0 0 150px #ff00de;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de,
+      0 0 50px #ff00de, 0 0 75px #ff00de;
+  }
+}
+
+@keyframes neon6 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de,
+      0 0 100px #ff00de, 0 0 150px #ff00de;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de,
+      0 0 50px #ff00de, 0 0 75px #ff00de;
+  }
+}
+
+.squad-prompt {
+  color: fuchsia;
+  font-size: 22px;
+  // font-family: 'Black Ops One', cursive;
+  background-color: rgb(31, 30, 30);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  width: fit-content;
+  margin: auto;
+}
