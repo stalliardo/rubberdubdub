@@ -40,7 +40,7 @@ class SquadContainer extends Component {
                 <div className="squad-page-members-area neon-borders">
                     <SquadDetails userData={this.props.userData} squadData={this.state.squadData}/>
                     <div className="members-and-teams">
-                        <SquadMembers squadData={this.state.squadData}/>
+                        <SquadMembers squadData={this.state.squadData} isGeneral={this.props.isGeneral}/>
                         <SquadTeams />
                     </div>
                     <TournamentInformation />

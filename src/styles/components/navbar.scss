@@ -1,7 +1,7 @@
 .navbar {
-    height: 70px;
+    height: 80px;
     position: fixed;
-    // background-color: #20232a;
+    background-color: #20232a;
     width: 100%;
     z-index: 1;
     left: 0;
@@ -51,7 +51,5 @@
     span.nav-identifier {
         color: steelblue;
     }
-
-    
    }
 }

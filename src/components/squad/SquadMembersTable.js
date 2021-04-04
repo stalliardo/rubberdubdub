@@ -16,9 +16,15 @@ class SquadMembersTable extends Component {
                         <td>
                             {data.firstname}
                         </td>
-                        <td>
-                            Actions here
-                        </td> 
+                        {
+                            this.props.isGeneral ?
+                                <td id="table-actions">
+                                    <span>Remove User</span>
+                                    <span>Promote User</span>
+                                </td>
+                                : null
+                        }
+
                     </tr>
 
                 );
@@ -31,13 +37,12 @@ class SquadMembersTable extends Component {
                     <tr>
                         <td>Activison Account</td>
                         <td>First Name</td>
-                        <td>Actions</td>
+                        {this.props.isGeneral ? <td>Actions</td> : null}
                     </tr>
                 </thead>
                 <tbody>
                     {tableRows}
                 </tbody>
-
             </table>
         )
     }

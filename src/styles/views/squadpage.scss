@@ -1,3 +1,5 @@
+$blue: rgb(0, 174, 255); 
+
 .squad-page {
     h1 {
         text-align: center;
@@ -119,7 +121,6 @@
 }
 
 .squad-details {
-    border: 1px solid rgb(55, 0, 255);
     height: fit-content;
     display: flex;
     justify-content: space-between;
@@ -134,29 +135,81 @@
     }
 }
 
-.squad-members {
-    border: 1px solid green;
-    
+.squad-members {    
+    background-color: rgba(0, 247, 255, 0.151);
+    border-radius: 5px;
+    .squad-members-table-container {
+        max-height: 320px;
+        overflow-y: auto;
+    }
+    h2 {
+        color: fuchsia;
+        font-size: 20px;
+        margin-left: 8px;
+
+        span {
+            font-size: 18px;
+            color: $blue;
+        }
+    }
+
+    .squad-members-add-button {
+        width: 25%;
+        margin-left: 8px;
+
+    }
     #squadMembers {
         border-collapse: collapse;
-        width: 90%;
+        width: 98%;
         margin: auto;
+        font-family: 'Black Ops One', cursive;
+        letter-spacing: 1px;
     }
+
+    #table-actions {
+        text-align: center;
+        span {
+            color: rgb(0, 174, 255);  
+            &:hover {
+                cursor: pointer;
+            }  
+        }
+        span:first-of-type {
+            margin-right: 10%;
+            color: red;
+        }
+    }
+    
     #squadMembers td, #squadMembers thead {
-        border: 1px solid #ddd;
+        border: 1px solid rgb(1, 183, 255);
         padding: 8px;
       }
+
+    #squadMembers tbody td {
+        color: rgb(0, 174, 255);
+        font-size: 14px;
+    }
+
+    #squadMembers td:nth-child(1) {
+        width: 33%;
+    }
+    #squadMembers td:nth-child(2) {
+        width: 33%;
+    }
       
-      #squadMembers tr:nth-child(even){background-color: #5a2222;}
+    //   #squadMembers tr:nth-child(even){background-color: #5a2222;}
       
-      #squadMembers tr:hover {background-color: #ddd;}
+      #squadMembers tbody tr:hover {
+          background-color: rgba(255, 0, 212, 0.384);
+        // cursor: pointer;
+        }
       
       #squadMembers thead {
         padding-top: 12px;
         padding-bottom: 12px;
         text-align: left;
-        background-color: #4CAF50;
-        color: white;
+        // background-color: #4CAF50;
+        color: rgb(255, 0, 200);
       }
 }
 
@@ -165,7 +218,7 @@
 }
 
 .squad-teams {
-    border: 1px solid yellow;
+    // border: 1px solid yellow;
 }
 
 .squad-leader-board {
