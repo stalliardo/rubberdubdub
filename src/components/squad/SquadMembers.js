@@ -27,6 +27,7 @@ class SquadMembers extends Component {
 
                 {
                     this.state.showAddMembersModal ? 
+                    // TODO -> add a callback to the below comp for onCancel and onPlayerSelected etc
                     <FindSoldiersModal /> : null
                 }
 

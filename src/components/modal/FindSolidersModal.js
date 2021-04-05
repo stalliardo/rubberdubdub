@@ -11,7 +11,10 @@ class FindSoldiersModal extends Component {
         super(props);
 
         this.state = {
-            data: []
+            data: [],
+            isSearchingForMembers: false,
+            showAddMemberPrompt: false,
+            member: null
         }
 
     }
@@ -22,9 +25,9 @@ class FindSoldiersModal extends Component {
         if (searchTerm.length > 2) {
 
             this.setState({
-                isSearching: true
+                isSearchingForMembers: true
             })
-           
+
             axios.get(`/searchSoldiers/${searchTerm}`).then((data) => {
                 console.log("soldier data = ", data.data.data);
                 this.setState({
@@ -34,50 +37,79 @@ class FindSoldiersModal extends Component {
                 console.log("error getting soldier data. Error: ", error);
             }).finally(() => {
                 this.setState({
-                    isSearching: false
+                    isSearchingForMembers: false
                 })
             })
         } else if (searchTerm.length < 3) {
             this.setState({
                 data: [],
-                isSearching: false
+                isSearchingForMembers: false
             })
         }
+    }
+
+    memberSelected = (member) => {
+        console.log("member selected = ", member);
+        this.setState({
+            data: [],
+            showAddMemberPrompt: true,
+            member
+        })
+    }
+
+    addMemberConfirmed = () => {
+        console.log("Addmember confirmed");
+        // TODO -> Close the modal on confirm and call the callback
+    }
+
+    onCancel = () => {
+        // TODO -> close the modal via a callback
     }
 
     render() {
         return (
             <div className="modal find-soldiers">
                 <h1>Find soliders</h1>
-                <label>Only soldiers that are NOT in a squad will be found</label>
-                <div id="find-solider-input">
-                    <input className="e-input with-spinner" id="soldierSearchBox" type="text" name="soldierSearch" placeholder="Optional - Search for soldiers (case sensitive)" onChange={this.startSearch} />
-                </div>
-                <DropDownMenu
-                    data={this.state.data}
-                    textKey="activisionAccount"
-                    isLoading={this.props.isSearching}
-                    itemSelected={this.soliderSelected}
-                />
-
-                {/* {
-                    this.state.selectedSoldiers.length ?
-                        <ul>
-                            {
-                                this.state.selectedSoldiers.map((soldier, index) => {
-                                    return <li key={index + soldier}>{soldier.activisionAccount} <span onClick={this.onDeselectSoldier.bind(this, soldier)}>X</span></li>
-                                })
-                            }
-                        </ul> : null
-                } */}
-
-                <div className="modal-buttons">
-                    <Button text="Cancel"/>
-                    <Button text="Save?"/>
-                </div>
+                {
+                    !this.state.showAddMemberPrompt ? <SearchUI context={this} /> : <AddMemberPrompt context={this}/>
+                }
             </div>
         )
     }
 }
 
 export default FindSoldiersModal;
+
+function SearchUI(props) {
+    return (
+        <div>
+            <label>Only soldiers that are NOT in a squad will be found</label>
+            <div id="find-solider-input">
+                <input className="e-input with-spinner" id="soldierSearchBox" type="text" name="soldierSearch" placeholder="Optional - Search for soldiers (case sensitive)" onChange={props.context.startSearch} />
+            </div>
+            <DropDownMenu
+                data={props.context.state.data}
+                textKey="activisionAccount"
+                isLoading={props.context.state.isSearchingForMembers}
+                itemSelected={props.context.memberSelected}
+            />
+
+            <div className="modal-buttons">
+                <Button text="Cancel" />
+                <Button text="Save?" />
+            </div>
+        </div>
+    )
+}
+
+function AddMemberPrompt(props) {
+    
+    return <div>
+        <label>Are you sure you want to add <span id="member-highlight">{props.context.state.member.activisionAccount}</span> to your squad?</label>
+       
+        <div className="modal-buttons">
+            <Button text="Confirm" clickHandler={props.context.addMemberConfirmed}/>
+            <Button text="Cancel" clickHandler={props.context.onCancel}/>
+        </div>
+    </div>
+}

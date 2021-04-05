@@ -1,6 +1,7 @@
 .modal {
 	width: 50%;
-	min-height: 400px;
+	// min-height: 400px;
+	padding: 10px 20px 30px;
 	height: fit-content;
 	border-radius: 5px;
 	background-color: rgb(36, 34, 34);
@@ -14,11 +15,26 @@
 	box-sizing: border-box;
 }
 
+.modal-buttons {
+	width: 65%;
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+	
+	button {
+		width: 40%;
+	}
+}
+
+#member-highlight {
+	color:  rgb(0, 174, 255);
+}
+
 .modal.find-soldiers {
 	// display: block;
 
 	#find-solider-input {
-		width: 60%;
+		width: 65%;
 		margin: 10px auto;
 	}
 
@@ -27,7 +43,7 @@
 	}
 
 	.drop-down-menu-container {
-		width: 60%;
+		width: 65%;
 		margin: auto;
 	}
 
